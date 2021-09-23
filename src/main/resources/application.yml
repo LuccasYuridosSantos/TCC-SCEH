@@ -1,0 +1,9 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_tcc?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSl=false
+    username: ${USER}
+    password: ${PASSWORD_MYSQL}
