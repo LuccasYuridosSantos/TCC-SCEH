@@ -1,5 +1,8 @@
 package br.com.tcc.sceh.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -7,7 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity()
+@Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Usuario {
 
 	@Id

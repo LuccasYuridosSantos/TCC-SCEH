@@ -1,9 +1,13 @@
 package br.com.tcc.sceh.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
+@Entity
 public class Reserva {
 
+	@Id
 	private String codigoReserva;
 	private int quantidade;
 	private LocalDate dataReserva;

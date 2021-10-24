@@ -1,11 +1,16 @@
 package br.com.tcc.sceh.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 public class Hospital {
 
 	@Id
-	private String codigoHospital;
+	@GeneratedValue(strategy= GenerationType.AUTO)
+	private Long codigoHospital;
 	private String cnpj;
 	private String razaoSocial;
 	private String nomeFantasia;
@@ -15,8 +20,7 @@ public class Hospital {
 
 	}
 
-	public Hospital(String codigoHospital, String cnpj, String razaoSocial, String nomeFantasia, String tipo) {
-		super();
+	public Hospital(Long codigoHospital, String cnpj, String razaoSocial, String nomeFantasia, String tipo) {
 		this.codigoHospital = codigoHospital;
 		this.cnpj = cnpj;
 		this.razaoSocial = razaoSocial;
@@ -24,11 +28,11 @@ public class Hospital {
 		this.tipo = tipo;
 	}
 
-	public String getCodigoHospital() {
+	public Long getCodigoHospital() {
 		return codigoHospital;
 	}
 
-	public void setCodigoHospital(String codigoHospital) {
+	public void setCodigoHospital(Long codigoHospital) {
 		this.codigoHospital = codigoHospital;
 	}
 
@@ -64,4 +68,15 @@ public class Hospital {
 		this.tipo = tipo;
 	}
 
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("Hospital{");
+		sb.append("codigoHospital=").append(codigoHospital);
+		sb.append(", cnpj='").append(cnpj).append('\'');
+		sb.append(", razaoSocial='").append(razaoSocial).append('\'');
+		sb.append(", nomeFantasia='").append(nomeFantasia).append('\'');
+		sb.append(", tipo='").append(tipo).append('\'');
+		sb.append('}');
+		return sb.toString();
+	}
 }

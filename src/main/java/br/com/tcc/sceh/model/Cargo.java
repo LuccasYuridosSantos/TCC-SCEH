@@ -1,7 +1,9 @@
 package br.com.tcc.sceh.model;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
+@Entity
 public class Cargo {
 	
 	@Id
@@ -9,7 +11,6 @@ public class Cargo {
 	private String nomeCargo;
 	
 	public Cargo() {
-		
 	}
 
 	public Cargo(String codigoCargo, String nomeCargo) {
