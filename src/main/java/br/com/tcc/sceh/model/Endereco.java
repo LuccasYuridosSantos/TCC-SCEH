@@ -1,13 +1,19 @@
 package br.com.tcc.sceh.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Endereco {
 
 	@Id
-	private String codigoEndereco;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long codigoEndereco;
 	private String rua;
 	private String numero;
 	private String cidade;
@@ -19,9 +25,8 @@ public class Endereco {
 	public Endereco() {
 	}
 
-	public Endereco(String codigoEndereco, String rua, String numero, String cidade, String estado, String cep,
-			String complemento, String obversacao) {
-		super();
+	public Endereco(Long codigoEndereco, String rua, String numero, String cidade, String estado, String cep,
+					String complemento, String obversacao) {
 		this.codigoEndereco = codigoEndereco;
 		this.rua = rua;
 		this.numero = numero;
@@ -32,11 +37,11 @@ public class Endereco {
 		this.obversacao = obversacao;
 	}
 
-	public String getCodigoEndereco() {
+	public Long getCodigoEndereco() {
 		return codigoEndereco;
 	}
 
-	public void setCodigoEndereco(String codigoEndereco) {
+	public void setCodigoEndereco(Long codigoEndereco) {
 		this.codigoEndereco = codigoEndereco;
 	}
 
@@ -96,4 +101,30 @@ public class Endereco {
 		this.obversacao = obversacao;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Endereco endereco = (Endereco) o;
+		return Objects.equals(codigoEndereco, endereco.codigoEndereco) && Objects.equals(rua, endereco.rua) && Objects.equals(numero, endereco.numero) && Objects.equals(cidade, endereco.cidade) && Objects.equals(estado, endereco.estado) && Objects.equals(cep, endereco.cep) && Objects.equals(complemento, endereco.complemento) && Objects.equals(obversacao, endereco.obversacao);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigoEndereco, rua, numero, cidade, estado, cep, complemento, obversacao);
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("codigoEndereco", codigoEndereco)
+				.append("rua", rua)
+				.append("numero", numero)
+				.append("cidade", cidade)
+				.append("estado", estado)
+				.append("cep", cep)
+				.append("complemento", complemento)
+				.append("obversacao", obversacao)
+				.toString();
+	}
 }

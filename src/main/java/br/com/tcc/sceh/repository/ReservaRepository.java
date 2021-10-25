@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.tcc.sceh.model.Reserva;
 
 @Repository
-public interface ReservaRepository extends JpaRepository<Reserva, String>{
+public interface ReservaRepository extends JpaRepository<Reserva, Long>{
 
 }

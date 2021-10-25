@@ -5,8 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import br.com.tcc.sceh.model.Cargo;
 
-@Repository
-public interface CargoRepository extends JpaRepository<Cargo, String>{
-	
+import java.util.List;
 
+@Repository
+public interface CargoRepository extends JpaRepository<Cargo, Long>{
+	List<Cargo> findByNomeCargoContainingIgnoreCase(final String nomeCargo);
 }

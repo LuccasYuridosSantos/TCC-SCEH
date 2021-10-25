@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.tcc.sceh.model.Telefone;
 
 @Repository
-public interface TelefoneRepository extends JpaRepository<Telefone, String>{
+public interface TelefoneRepository extends JpaRepository<Telefone, Long>{
 
 }

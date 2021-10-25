@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +36,7 @@ public class HospitalController {
 
     @GetMapping("/{codigoHospital}")
     public ResponseEntity<Hospital> buscarHospitalPorId(@PathVariable final Long codigoHospital){
-        return hospitalRepository.findByCodigoHospital(codigoHospital)
+        return hospitalRepository.findById(codigoHospital)
                 .map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
@@ -48,5 +49,11 @@ public class HospitalController {
     public ResponseEntity<Hospital> cadastrarHospital(@RequestBody final Hospital hospitalRequest){
         hospitalService.ValidacaoHospital(hospitalRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(hospitalRepository.save(hospitalRequest));
+    }
+
+    @PutMapping("/atualizar")
+    public ResponseEntity<Hospital> atualizarHospital(@RequestBody final Hospital hospitalRequest){
+        hospitalService.ValidacaoHospital(hospitalRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(hospitalRepository.save(hospitalRequest));
     }
 }

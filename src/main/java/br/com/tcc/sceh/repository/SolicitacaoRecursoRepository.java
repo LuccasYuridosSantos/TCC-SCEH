@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.tcc.sceh.model.SolicitacaoRecurso;
 
 @Repository
-public interface SolicitacaoRecursoRepository extends JpaRepository<SolicitacaoRecurso, String>{
+public interface SolicitacaoRecursoRepository extends JpaRepository<SolicitacaoRecurso, Long>{
 
 }

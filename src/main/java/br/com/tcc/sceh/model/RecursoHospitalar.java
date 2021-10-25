@@ -1,15 +1,22 @@
 package br.com.tcc.sceh.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class RecursoHospitalar {
 	
 	@Id
-	private String codigoRecurso;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long codigoRecurso;
 	private int quantidade;
 	private String nome;
 	private String marca;
@@ -23,9 +30,8 @@ public class RecursoHospitalar {
 		
 	}
 
-	public RecursoHospitalar(String codigoRecurso, int quantidade, String nome, String marca, String fabricante,
-			String descricao, LocalDate dataFabricacao, LocalDate dataValidade, String lote) {
-		super();
+	public RecursoHospitalar(Long codigoRecurso, int quantidade, String nome, String marca, String fabricante,
+							 String descricao, LocalDate dataFabricacao, LocalDate dataValidade, String lote) {
 		this.codigoRecurso = codigoRecurso;
 		this.quantidade = quantidade;
 		this.nome = nome;
@@ -37,11 +43,11 @@ public class RecursoHospitalar {
 		this.lote = lote;
 	}
 
-	public String getCodigoRecurso() {
+	public Long getCodigoRecurso() {
 		return codigoRecurso;
 	}
 
-	public void setCodigoRecurso(String codigoRecurso) {
+	public void setCodigoRecurso(Long codigoRecurso) {
 		this.codigoRecurso = codigoRecurso;
 	}
 
@@ -108,5 +114,40 @@ public class RecursoHospitalar {
 	public void setLote(String lote) {
 		this.lote = lote;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		RecursoHospitalar that = (RecursoHospitalar) o;
+
+		return new EqualsBuilder().append(quantidade, that.quantidade).append(codigoRecurso,
+				that.codigoRecurso).append(nome, that.nome).append(marca, that.marca).append(fabricante,
+				that.fabricante).append(descricao, that.descricao).append(dataFabricacao,
+				that.dataFabricacao).append(dataValidade, that.dataValidade).append(lote, that.lote).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(codigoRecurso).append(quantidade)
+				.append(nome).append(marca).append(fabricante).append(descricao).append(dataFabricacao)
+				.append(dataValidade).append(lote).toHashCode();
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("codigoRecurso", codigoRecurso)
+				.append("quantidade", quantidade)
+				.append("nome", nome)
+				.append("marca", marca)
+				.append("fabricante", fabricante)
+				.append("descricao", descricao)
+				.append("dataFabricacao", dataFabricacao)
+				.append("dataValidade", dataValidade)
+				.append("lote", lote)
+				.toString();
+	}
 }

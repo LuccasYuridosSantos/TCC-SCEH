@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.tcc.sceh.model.RecursoHospitalar;
 
 @Repository
-public interface RecursoHospitalarRepository extends JpaRepository<RecursoHospitalar, String>{
+public interface RecursoHospitalarRepository extends JpaRepository<RecursoHospitalar, Long>{
 	
 }

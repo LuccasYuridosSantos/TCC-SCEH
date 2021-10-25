@@ -1,21 +1,24 @@
 package br.com.tcc.sceh.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.Objects;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import java.util.Objects;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Usuario {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long codigoUsuario;
 
 	private String userName;
@@ -27,6 +30,26 @@ public class Usuario {
 	private String statusUsuario;
 
 	private String senha;
+
+	@ManyToOne
+	private Hospital hospital;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Funcionario funcionario;
+
+	public Usuario() {
+	}
+
+	public Usuario(Long codigoUsuario, String userName, String email, String permissao, String statusUsuario, String senha, Hospital hospital, Funcionario funcionario) {
+		this.codigoUsuario = codigoUsuario;
+		this.userName = userName;
+		this.email = email;
+		this.permissao = permissao;
+		this.statusUsuario = statusUsuario;
+		this.senha = senha;
+		this.hospital = hospital;
+		this.funcionario = funcionario;
+	}
 
 	public Long getCodigoUsuario() {
 		return codigoUsuario;
@@ -76,29 +99,46 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	@Override public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(Hospital hospital) {
+		this.hospital = hospital;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 		Usuario usuario = (Usuario) o;
-		return Objects.equals(codigoUsuario, usuario.codigoUsuario) && Objects.equals(userName, usuario.userName) && Objects.equals(email, usuario.email) && Objects.equals(permissao, usuario.permissao) && Objects.equals(
-				statusUsuario, usuario.statusUsuario) && Objects.equals(senha, usuario.senha);
+		return Objects.equals(codigoUsuario, usuario.codigoUsuario) && Objects.equals(userName, usuario.userName) && Objects.equals(email, usuario.email) && Objects.equals(permissao, usuario.permissao) && Objects.equals(statusUsuario, usuario.statusUsuario) && Objects.equals(senha, usuario.senha) && Objects.equals(hospital, usuario.hospital) && Objects.equals(funcionario, usuario.funcionario);
 	}
 
-	@Override public int hashCode() {
-		return Objects.hash(codigoUsuario, userName, email, permissao, statusUsuario, senha);
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigoUsuario, userName, email, permissao, statusUsuario, senha, hospital, funcionario);
 	}
 
-	@Override public String toString() {
-		final StringBuilder sb = new StringBuilder("Usuario{");
-		sb.append("codigoUsuario=").append(codigoUsuario);
-		sb.append(", userName='").append(userName).append('\'');
-		sb.append(", email='").append(email).append('\'');
-		sb.append(", permissao='").append(permissao).append('\'');
-		sb.append(", statusUsuario='").append(statusUsuario).append('\'');
-		sb.append(", senha='").append(senha).append('\'');
-		sb.append('}');
-		return sb.toString();
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("codigoUsuario", codigoUsuario)
+				.append("userName", userName)
+				.append("email", email)
+				.append("permissao", permissao)
+				.append("statusUsuario", statusUsuario)
+				.append("senha", senha)
+				.append("hospital", hospital)
+				.append("funcionario", funcionario)
+				.toString();
 	}
 }

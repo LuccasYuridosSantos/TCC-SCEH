@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,12 +46,13 @@ public class UsuarioController {
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> saveUsuario(@RequestBody Usuario usuario){
 		usuario.setStatusUsuario("ATIVO");
-		var response = usuarioRepository.save(usuario);
-		if(response == null){
-			LOGGER.debug("Usuario não foi Cadastrado");
-			return ResponseEntity.badRequest().build();
-		}
-		LOGGER.debug("Usuario {} foi cadatrado com sucesso", response.toString());
-		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+		LOGGER.debug("Cadastrando usuario");
+		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(usuario));
+	}
+
+	@PutMapping("/atualizar")
+	public ResponseEntity<Usuario> atualizarUsuario(@RequestBody final Usuario usuario){
+		LOGGER.debug("Atualizando Usuario Cadastrado");
+		return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.save(usuario));
 	}
 }
