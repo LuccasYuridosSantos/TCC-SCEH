@@ -1,6 +1,8 @@
 package br.com.tcc.sceh.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.CascadeType;
@@ -8,10 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import java.util.Objects;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -40,7 +39,8 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(Long codigoUsuario, String userName, String email, String permissao, String statusUsuario, String senha, Hospital hospital, Funcionario funcionario) {
+	public Usuario(Long codigoUsuario, String userName, String email, String permissao, String statusUsuario,
+				   String senha, Hospital hospital, Funcionario funcionario) {
 		this.codigoUsuario = codigoUsuario;
 		this.userName = userName;
 		this.email = email;
@@ -118,14 +118,17 @@ public class Usuario {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
+
 		if (o == null || getClass() != o.getClass()) return false;
+
 		Usuario usuario = (Usuario) o;
-		return Objects.equals(codigoUsuario, usuario.codigoUsuario) && Objects.equals(userName, usuario.userName) && Objects.equals(email, usuario.email) && Objects.equals(permissao, usuario.permissao) && Objects.equals(statusUsuario, usuario.statusUsuario) && Objects.equals(senha, usuario.senha) && Objects.equals(hospital, usuario.hospital) && Objects.equals(funcionario, usuario.funcionario);
+
+		return new EqualsBuilder().append(codigoUsuario, usuario.codigoUsuario).append(userName, usuario.userName).append(email, usuario.email).append(permissao, usuario.permissao).append(statusUsuario, usuario.statusUsuario).append(senha, usuario.senha).append(hospital, usuario.hospital).append(funcionario, usuario.funcionario).isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigoUsuario, userName, email, permissao, statusUsuario, senha, hospital, funcionario);
+		return new HashCodeBuilder(17, 37).append(codigoUsuario).append(userName).append(email).append(permissao).append(statusUsuario).append(senha).append(hospital).append(funcionario).toHashCode();
 	}
 
 	@Override

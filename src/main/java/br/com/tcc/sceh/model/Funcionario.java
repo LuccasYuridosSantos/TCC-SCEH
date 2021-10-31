@@ -1,6 +1,8 @@
 package br.com.tcc.sceh.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.CascadeType;
@@ -9,10 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -26,22 +25,19 @@ public class Funcionario {
 	private LocalDate dataNascimento;
 	private boolean status;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Telefone> telefone;
-
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cargo cargo;
 
 	public Funcionario() {
 	}
 
-	public Funcionario(Long codigoFuncionario, String matricula, String nome, LocalDate dataNascimento, boolean status, List<Telefone> telefone, Cargo cargo) {
+	public Funcionario(Long codigoFuncionario, String matricula, String nome, LocalDate dataNascimento,
+					   boolean status, Cargo cargo) {
 		this.codigoFuncionario = codigoFuncionario;
 		this.matricula = matricula;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.status = status;
-		this.telefone = telefone;
 		this.cargo = cargo;
 	}
 
@@ -85,14 +81,6 @@ public class Funcionario {
 		this.status = status;
 	}
 
-	public List<Telefone> getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(List<Telefone> telefone) {
-		this.telefone = telefone;
-	}
-
 	public Cargo getCargo() {
 		return cargo;
 	}
@@ -104,14 +92,21 @@ public class Funcionario {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
+
 		if (o == null || getClass() != o.getClass()) return false;
+
 		Funcionario that = (Funcionario) o;
-		return status == that.status && Objects.equals(codigoFuncionario, that.codigoFuncionario) && Objects.equals(matricula, that.matricula) && Objects.equals(nome, that.nome) && Objects.equals(dataNascimento, that.dataNascimento) && Objects.equals(telefone, that.telefone) && Objects.equals(cargo, that.cargo);
+
+		return new EqualsBuilder().append(status, that.status).append(codigoFuncionario, that.codigoFuncionario)
+				.append(matricula, that.matricula).append(nome, that.nome).append(dataNascimento, that.dataNascimento)
+				.append(cargo, that.cargo).isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigoFuncionario, matricula, nome, dataNascimento, status, telefone, cargo);
+		return new HashCodeBuilder(17, 37)
+				.append(codigoFuncionario).append(matricula).append(nome).append(dataNascimento).append(status)
+				.append(cargo).toHashCode();
 	}
 
 	@Override
@@ -122,7 +117,6 @@ public class Funcionario {
 				.append("nome", nome)
 				.append("dataNascimento", dataNascimento)
 				.append("status", status)
-				.append("telefone", telefone)
 				.append("cargo", cargo)
 				.toString();
 	}

@@ -54,7 +54,7 @@ public class CargoController {
         return ResponseEntity.status(HttpStatus.OK).body(cargoRepository.save(cargo));
     }
 
-    @DeleteMapping("/{codigoCargo}")
+    @DeleteMapping("/deletar/{codigoCargo}")
     public ResponseEntity<Void> deletarCargo(@RequestBody final Long codigoCargo) {
         cargoRepository.deleteById(codigoCargo);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

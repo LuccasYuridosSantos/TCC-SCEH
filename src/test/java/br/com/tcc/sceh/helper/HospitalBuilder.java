@@ -1,6 +1,9 @@
 package br.com.tcc.sceh.helper;
 
 import br.com.tcc.sceh.model.Hospital;
+import br.com.tcc.sceh.model.Telefone;
+
+import java.util.List;
 
 public class HospitalBuilder {
     private Hospital hospital = new Hospital();
@@ -18,6 +21,9 @@ public class HospitalBuilder {
         hospital.setNomeFantasia("Hospital Test");
         hospital.setRazaoSocial("Hospital Test");
         hospital.setTipo("PUBLICO");
+        final Telefone telefone = new Telefone();
+        telefone.setCodigoTelefone(1L);
+        hospital.setTelefone(telefone);
         this.hospital = hospital;
         return this;
     }

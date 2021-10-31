@@ -4,6 +4,7 @@ import br.com.tcc.sceh.exceptions.ApiException;
 import br.com.tcc.sceh.helper.HospitalBuilder;
 import br.com.tcc.sceh.model.Hospital;
 import br.com.tcc.sceh.repository.HospitalRepository;
+import br.com.tcc.sceh.repository.TelefoneRepository;
 import br.com.tcc.sceh.service.HospitalService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,6 +19,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Optional;
+
 @RunWith(MockitoJUnitRunner.class)
 public class HospitalControllerTest {
 
@@ -30,12 +33,15 @@ public class HospitalControllerTest {
     @Mock
     private HospitalRepository hospitalRepository;
 
+    @Mock
+    private TelefoneRepository telefoneRepository;
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void setup() {
-        hospitalService = new HospitalService();
+        hospitalService = new HospitalService(telefoneRepository);
         controller = new HospitalController(hospitalService, hospitalRepository);
     }
 
@@ -45,6 +51,7 @@ public class HospitalControllerTest {
         final Hospital hospitalMock = HospitalBuilder.builder().hospitalCompleto().build();
 
         Mockito.when(hospitalRepository.save(hospitalMock)).thenReturn(hospitalMock);
+        Mockito.when(telefoneRepository.findById(1L)).thenReturn(Optional.empty());
 
         final  ResponseEntity<Hospital> hospitalResponse = controller.cadastrarHospital(hospitalMock);
 

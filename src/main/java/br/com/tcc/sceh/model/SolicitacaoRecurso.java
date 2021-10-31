@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class SolicitacaoRecurso {
@@ -23,7 +24,10 @@ public class SolicitacaoRecurso {
 	private LocalDate dataProgramada;
 	private boolean urgente;
 	private String observacao;
-	
+
+	@ManyToOne
+	private Hospital hospital;
+
 	public SolicitacaoRecurso() {
 	}
 

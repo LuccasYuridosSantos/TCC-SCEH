@@ -1,18 +1,19 @@
 package br.com.tcc.sceh.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Objects;
 
 @Entity
 public class Telefone {
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long codigoTelefone;
 	private String ddd;
 	private String numero;
@@ -53,14 +54,19 @@ public class Telefone {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
+
 		if (o == null || getClass() != o.getClass()) return false;
+
 		Telefone telefone = (Telefone) o;
-		return Objects.equals(codigoTelefone, telefone.codigoTelefone) && Objects.equals(ddd, telefone.ddd) && Objects.equals(numero, telefone.numero);
+
+		return new EqualsBuilder().append(codigoTelefone, telefone.codigoTelefone).append(ddd, telefone.ddd)
+				.append(numero, telefone.numero).isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigoTelefone, ddd, numero);
+		return new HashCodeBuilder(17, 37).append(codigoTelefone).append(ddd)
+				.append(numero).toHashCode();
 	}
 
 	@Override

@@ -10,9 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import java.util.List;
+import javax.persistence.ManyToOne;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -26,22 +24,23 @@ public class Hospital {
 	private String nomeFantasia;
 	private String tipo;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Telefone> telefones;
+	@ManyToOne
+	private Telefone telefone;
 
-	@OneToOne
+	@ManyToOne
 	private Endereco endereco;
 
 	public Hospital() {
 	}
 
-	public Hospital(Long codigoHospital, String cnpj, String razaoSocial, String nomeFantasia, String tipo, List<Telefone> telefones, Endereco endereco) {
+	public Hospital(Long codigoHospital, String cnpj, String razaoSocial, String nomeFantasia, String tipo,
+					Telefone telefone, Endereco endereco) {
 		this.codigoHospital = codigoHospital;
 		this.cnpj = cnpj;
 		this.razaoSocial = razaoSocial;
 		this.nomeFantasia = nomeFantasia;
 		this.tipo = tipo;
-		this.telefones = telefones;
+		this.telefone = telefone;
 		this.endereco = endereco;
 	}
 
@@ -85,12 +84,12 @@ public class Hospital {
 		this.tipo = tipo;
 	}
 
-	public List<Telefone> getTelefones() {
-		return telefones;
+	public Telefone getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setTelefone(Telefone telefone) {
+		this.telefone = telefone;
 	}
 
 	public Endereco getEndereco() {
@@ -109,16 +108,16 @@ public class Hospital {
 
 		Hospital hospital = (Hospital) o;
 
-		return new EqualsBuilder().append(codigoHospital, hospital.codigoHospital).append(cnpj,
-				hospital.cnpj).append(razaoSocial, hospital.razaoSocial).append(nomeFantasia,
-				hospital.nomeFantasia).append(tipo, hospital.tipo).append(telefones,
-				hospital.telefones).append(endereco, hospital.endereco).isEquals();
+		return new EqualsBuilder().append(codigoHospital, hospital.codigoHospital).append(cnpj, hospital.cnpj)
+				.append(razaoSocial, hospital.razaoSocial).append(nomeFantasia, hospital.nomeFantasia)
+				.append(tipo, hospital.tipo).append(telefone, hospital.telefone).append(endereco, hospital.endereco)
+				.isEquals();
 	}
 
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(17, 37).append(codigoHospital).append(cnpj)
-				.append(razaoSocial).append(nomeFantasia).append(tipo).append(telefones).append(endereco).toHashCode();
+				.append(razaoSocial).append(nomeFantasia).append(tipo).append(telefone).append(endereco).toHashCode();
 	}
 
 	@Override
@@ -129,7 +128,7 @@ public class Hospital {
 				.append("razaoSocial", razaoSocial)
 				.append("nomeFantasia", nomeFantasia)
 				.append("tipo", tipo)
-				.append("telefones", telefones)
+				.append("telefone", telefone)
 				.append("endereco", endereco)
 				.toString();
 	}
