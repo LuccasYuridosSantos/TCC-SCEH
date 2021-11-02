@@ -39,7 +39,7 @@ public class RecursoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/nome/{nome}")
+    @GetMapping("/nome/{nomeRecurso}")
     public ResponseEntity<List<RecursoHospitalar>> buscarPorCodigoRecurso(@PathVariable final String nomeRecurso){
         return ResponseEntity.ok(recursoRepository.findByNomeContainingIgnoreCase(nomeRecurso));
     }

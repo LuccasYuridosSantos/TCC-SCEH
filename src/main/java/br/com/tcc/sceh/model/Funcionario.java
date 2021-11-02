@@ -31,8 +31,8 @@ public class Funcionario {
 	public Funcionario() {
 	}
 
-	public Funcionario(Long codigoFuncionario, String matricula, String nome, LocalDate dataNascimento,
-					   boolean status, Cargo cargo) {
+	public Funcionario(final Long codigoFuncionario, final String matricula, final String nome,
+			final LocalDate dataNascimento, final boolean status, final Cargo cargo) {
 		this.codigoFuncionario = codigoFuncionario;
 		this.matricula = matricula;
 		this.nome = nome;
@@ -45,7 +45,7 @@ public class Funcionario {
 		return codigoFuncionario;
 	}
 
-	public void setCodigoFuncionario(Long codigoFuncionario) {
+	public void setCodigoFuncionario(final Long codigoFuncionario) {
 		this.codigoFuncionario = codigoFuncionario;
 	}
 
@@ -53,7 +53,7 @@ public class Funcionario {
 		return matricula;
 	}
 
-	public void setMatricula(String matricula) {
+	public void setMatricula(final String matricula) {
 		this.matricula = matricula;
 	}
 
@@ -61,7 +61,7 @@ public class Funcionario {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(final String nome) {
 		this.nome = nome;
 	}
 
@@ -69,7 +69,7 @@ public class Funcionario {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento) {
+	public void setDataNascimento(final LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -77,7 +77,7 @@ public class Funcionario {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(final boolean status) {
 		this.status = status;
 	}
 
@@ -85,39 +85,7 @@ public class Funcionario {
 		return cargo;
 	}
 
-	public void setCargo(Cargo cargo) {
+	public void setCargo(final Cargo cargo) {
 		this.cargo = cargo;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-
-		if (o == null || getClass() != o.getClass()) return false;
-
-		Funcionario that = (Funcionario) o;
-
-		return new EqualsBuilder().append(status, that.status).append(codigoFuncionario, that.codigoFuncionario)
-				.append(matricula, that.matricula).append(nome, that.nome).append(dataNascimento, that.dataNascimento)
-				.append(cargo, that.cargo).isEquals();
-	}
-
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder(17, 37)
-				.append(codigoFuncionario).append(matricula).append(nome).append(dataNascimento).append(status)
-				.append(cargo).toHashCode();
-	}
-
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this)
-				.append("codigoFuncionario", codigoFuncionario)
-				.append("matricula", matricula)
-				.append("nome", nome)
-				.append("dataNascimento", dataNascimento)
-				.append("status", status)
-				.append("cargo", cargo)
-				.toString();
 	}
 }

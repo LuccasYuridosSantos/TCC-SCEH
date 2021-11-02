@@ -1,5 +1,6 @@
 package br.com.tcc.sceh.model;
 
+import br.com.tcc.sceh.enums.Permissao;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -24,7 +25,7 @@ public class Usuario {
 
 	private String email;
 
-	private String permissao;
+	private Permissao permissao;
 
 	private String statusUsuario;
 
@@ -39,7 +40,7 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(Long codigoUsuario, String userName, String email, String permissao, String statusUsuario,
+	public Usuario(Long codigoUsuario, String userName, String email, Permissao permissao, String statusUsuario,
 				   String senha, Hospital hospital, Funcionario funcionario) {
 		this.codigoUsuario = codigoUsuario;
 		this.userName = userName;
@@ -75,11 +76,11 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public String getPermissao() {
+	public Permissao getPermissao() {
 		return permissao;
 	}
 
-	public void setPermissao(String permissao) {
+	public void setPermissao(Permissao permissao) {
 		this.permissao = permissao;
 	}
 

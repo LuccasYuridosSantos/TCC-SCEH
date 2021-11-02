@@ -1,15 +1,19 @@
 package br.com.tcc.sceh.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.time.LocalDate;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class RecursoHospitalar {
@@ -25,13 +29,19 @@ public class RecursoHospitalar {
 	private LocalDate dataFabricacao;
 	private LocalDate dataValidade;
 	private String lote;
-	
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Hospital hospital;
+
+	@ManyToMany(mappedBy = "recursoHospitalars",cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("recursoHospitalars")
+	private List<Reserva> reservas;
+
 	public RecursoHospitalar() {
-		
 	}
 
-	public RecursoHospitalar(Long codigoRecurso, int quantidade, String nome, String marca, String fabricante,
-							 String descricao, LocalDate dataFabricacao, LocalDate dataValidade, String lote) {
+	public RecursoHospitalar(final Long codigoRecurso, final int quantidade, final String nome, final String marca, final String fabricante, final String descricao, final LocalDate dataFabricacao,
+			final LocalDate dataValidade, final String lote, final Hospital hospital, final List<Reserva> reservas) {
 		this.codigoRecurso = codigoRecurso;
 		this.quantidade = quantidade;
 		this.nome = nome;
@@ -41,13 +51,15 @@ public class RecursoHospitalar {
 		this.dataFabricacao = dataFabricacao;
 		this.dataValidade = dataValidade;
 		this.lote = lote;
+		this.hospital = hospital;
+		this.reservas = reservas;
 	}
 
 	public Long getCodigoRecurso() {
 		return codigoRecurso;
 	}
 
-	public void setCodigoRecurso(Long codigoRecurso) {
+	public void setCodigoRecurso(final Long codigoRecurso) {
 		this.codigoRecurso = codigoRecurso;
 	}
 
@@ -55,7 +67,7 @@ public class RecursoHospitalar {
 		return quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(final int quantidade) {
 		this.quantidade = quantidade;
 	}
 
@@ -63,7 +75,7 @@ public class RecursoHospitalar {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(final String nome) {
 		this.nome = nome;
 	}
 
@@ -71,7 +83,7 @@ public class RecursoHospitalar {
 		return marca;
 	}
 
-	public void setMarca(String marca) {
+	public void setMarca(final String marca) {
 		this.marca = marca;
 	}
 
@@ -79,7 +91,7 @@ public class RecursoHospitalar {
 		return fabricante;
 	}
 
-	public void setFabricante(String fabricante) {
+	public void setFabricante(final String fabricante) {
 		this.fabricante = fabricante;
 	}
 
@@ -87,7 +99,7 @@ public class RecursoHospitalar {
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
+	public void setDescricao(final String descricao) {
 		this.descricao = descricao;
 	}
 
@@ -95,7 +107,7 @@ public class RecursoHospitalar {
 		return dataFabricacao;
 	}
 
-	public void setDataFabricacao(LocalDate dataFabricacao) {
+	public void setDataFabricacao(final LocalDate dataFabricacao) {
 		this.dataFabricacao = dataFabricacao;
 	}
 
@@ -103,7 +115,7 @@ public class RecursoHospitalar {
 		return dataValidade;
 	}
 
-	public void setDataValidade(LocalDate dataValidade) {
+	public void setDataValidade(final LocalDate dataValidade) {
 		this.dataValidade = dataValidade;
 	}
 
@@ -111,43 +123,23 @@ public class RecursoHospitalar {
 		return lote;
 	}
 
-	public void setLote(String lote) {
+	public void setLote(final String lote) {
 		this.lote = lote;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-
-		if (o == null || getClass() != o.getClass()) return false;
-
-		RecursoHospitalar that = (RecursoHospitalar) o;
-
-		return new EqualsBuilder().append(quantidade, that.quantidade).append(codigoRecurso,
-				that.codigoRecurso).append(nome, that.nome).append(marca, that.marca).append(fabricante,
-				that.fabricante).append(descricao, that.descricao).append(dataFabricacao,
-				that.dataFabricacao).append(dataValidade, that.dataValidade).append(lote, that.lote).isEquals();
+	public Hospital getHospital() {
+		return hospital;
 	}
 
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder(17, 37).append(codigoRecurso).append(quantidade)
-				.append(nome).append(marca).append(fabricante).append(descricao).append(dataFabricacao)
-				.append(dataValidade).append(lote).toHashCode();
+	public void setHospital(final Hospital hospital) {
+		this.hospital = hospital;
 	}
 
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this)
-				.append("codigoRecurso", codigoRecurso)
-				.append("quantidade", quantidade)
-				.append("nome", nome)
-				.append("marca", marca)
-				.append("fabricante", fabricante)
-				.append("descricao", descricao)
-				.append("dataFabricacao", dataFabricacao)
-				.append("dataValidade", dataValidade)
-				.append("lote", lote)
-				.toString();
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(final List<Reserva> reservas) {
+		this.reservas = reservas;
 	}
 }

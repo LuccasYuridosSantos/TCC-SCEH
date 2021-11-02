@@ -1,5 +1,6 @@
 package br.com.tcc.sceh.helper;
 
+import br.com.tcc.sceh.enums.Permissao;
 import br.com.tcc.sceh.model.Usuario;
 
 public class UsuarioBuilder {
@@ -19,7 +20,7 @@ public class UsuarioBuilder {
         usuario.setCodigoUsuario(1L);
         usuario.setSenha("Test");
         usuario.setStatusUsuario("ATIVO");
-        usuario.setPermissao("ADM");
+        usuario.setPermissao(Permissao.ADM);
         usuario.setUserName("Test");
         usuario.setEmail("test@email.com");
         return this;

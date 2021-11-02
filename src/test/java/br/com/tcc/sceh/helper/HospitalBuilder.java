@@ -21,9 +21,6 @@ public class HospitalBuilder {
         hospital.setNomeFantasia("Hospital Test");
         hospital.setRazaoSocial("Hospital Test");
         hospital.setTipo("PUBLICO");
-        final Telefone telefone = new Telefone();
-        telefone.setCodigoTelefone(1L);
-        hospital.setTelefone(telefone);
         this.hospital = hospital;
         return this;
     }

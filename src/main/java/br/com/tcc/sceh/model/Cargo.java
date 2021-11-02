@@ -20,7 +20,7 @@ public class Cargo {
 	public Cargo() {
 	}
 
-	public Cargo(Long codigoCargo, String nomeCargo, String descricao) {
+	public Cargo(final Long codigoCargo, final String nomeCargo, final String descricao) {
 		this.codigoCargo = codigoCargo;
 		this.nomeCargo = nomeCargo;
 		this.descricao = descricao;
@@ -30,7 +30,7 @@ public class Cargo {
 		return codigoCargo;
 	}
 
-	public void setCodigoCargo(Long codigoCargo) {
+	public void setCodigoCargo(final Long codigoCargo) {
 		this.codigoCargo = codigoCargo;
 	}
 
@@ -38,7 +38,7 @@ public class Cargo {
 		return nomeCargo;
 	}
 
-	public void setNomeCargo(String nomeCargo) {
+	public void setNomeCargo(final String nomeCargo) {
 		this.nomeCargo = nomeCargo;
 	}
 
@@ -46,29 +46,7 @@ public class Cargo {
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
+	public void setDescricao(final String descricao) {
 		this.descricao = descricao;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Cargo cargo = (Cargo) o;
-		return Objects.equals(codigoCargo, cargo.codigoCargo) && Objects.equals(nomeCargo, cargo.nomeCargo) && Objects.equals(descricao, cargo.descricao);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(codigoCargo, nomeCargo, descricao);
-	}
-
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this)
-				.append("codigoCargo", codigoCargo)
-				.append("nomeCargo", nomeCargo)
-				.append("descricao", descricao)
-				.toString();
 	}
 }

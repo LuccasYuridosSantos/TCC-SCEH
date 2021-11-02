@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @Entity
@@ -22,11 +23,18 @@ public class Endereco {
 	private String complemento;
 	private String obversacao;
 
+	@ManyToOne
+	private Funcionario funcionario;
+
+	@ManyToOne
+	private Hospital hospital;
+
 	public Endereco() {
 	}
 
-	public Endereco(Long codigoEndereco, String rua, String numero, String cidade, String estado, String cep,
-					String complemento, String obversacao) {
+	public Endereco(final Long codigoEndereco, final String rua, final String numero, final String cidade,
+			final String estado, final String cep, final String complemento, final String obversacao,
+			final Funcionario funcionario, final Hospital hospital) {
 		this.codigoEndereco = codigoEndereco;
 		this.rua = rua;
 		this.numero = numero;
@@ -35,13 +43,15 @@ public class Endereco {
 		this.cep = cep;
 		this.complemento = complemento;
 		this.obversacao = obversacao;
+		this.funcionario = funcionario;
+		this.hospital = hospital;
 	}
 
 	public Long getCodigoEndereco() {
 		return codigoEndereco;
 	}
 
-	public void setCodigoEndereco(Long codigoEndereco) {
+	public void setCodigoEndereco(final Long codigoEndereco) {
 		this.codigoEndereco = codigoEndereco;
 	}
 
@@ -49,7 +59,7 @@ public class Endereco {
 		return rua;
 	}
 
-	public void setRua(String rua) {
+	public void setRua(final String rua) {
 		this.rua = rua;
 	}
 
@@ -57,7 +67,7 @@ public class Endereco {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(final String numero) {
 		this.numero = numero;
 	}
 
@@ -65,7 +75,7 @@ public class Endereco {
 		return cidade;
 	}
 
-	public void setCidade(String cidade) {
+	public void setCidade(final String cidade) {
 		this.cidade = cidade;
 	}
 
@@ -73,7 +83,7 @@ public class Endereco {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(final String estado) {
 		this.estado = estado;
 	}
 
@@ -81,7 +91,7 @@ public class Endereco {
 		return cep;
 	}
 
-	public void setCep(String cep) {
+	public void setCep(final String cep) {
 		this.cep = cep;
 	}
 
@@ -89,7 +99,7 @@ public class Endereco {
 		return complemento;
 	}
 
-	public void setComplemento(String complemento) {
+	public void setComplemento(final String complemento) {
 		this.complemento = complemento;
 	}
 
@@ -97,34 +107,23 @@ public class Endereco {
 		return obversacao;
 	}
 
-	public void setObversacao(String obversacao) {
+	public void setObversacao(final String obversacao) {
 		this.obversacao = obversacao;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Endereco endereco = (Endereco) o;
-		return Objects.equals(codigoEndereco, endereco.codigoEndereco) && Objects.equals(rua, endereco.rua) && Objects.equals(numero, endereco.numero) && Objects.equals(cidade, endereco.cidade) && Objects.equals(estado, endereco.estado) && Objects.equals(cep, endereco.cep) && Objects.equals(complemento, endereco.complemento) && Objects.equals(obversacao, endereco.obversacao);
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(codigoEndereco, rua, numero, cidade, estado, cep, complemento, obversacao);
+	public void setFuncionario(final Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this)
-				.append("codigoEndereco", codigoEndereco)
-				.append("rua", rua)
-				.append("numero", numero)
-				.append("cidade", cidade)
-				.append("estado", estado)
-				.append("cep", cep)
-				.append("complemento", complemento)
-				.append("obversacao", obversacao)
-				.toString();
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(final Hospital hospital) {
+		this.hospital = hospital;
 	}
 }

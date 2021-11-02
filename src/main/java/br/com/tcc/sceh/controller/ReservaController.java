@@ -4,6 +4,7 @@ import br.com.tcc.sceh.model.RecursoHospitalar;
 import br.com.tcc.sceh.model.Reserva;
 import br.com.tcc.sceh.repository.RecursoHospitalarRepository;
 import br.com.tcc.sceh.repository.ReservaRepository;
+import br.com.tcc.sceh.service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,12 @@ import java.util.List;
 public class ReservaController {
 
     private ReservaRepository reservaRepository;
+    private ReservaService reservaService;
 
     @Autowired
-    public ReservaController(ReservaRepository reservaRepository) {
+    public ReservaController(ReservaRepository reservaRepository, ReservaService reservaService) {
         this.reservaRepository = reservaRepository;
+        this.reservaService = reservaService;
     }
 
 
@@ -57,12 +60,13 @@ public class ReservaController {
 
     @PostMapping("/cadastrar")
     public ResponseEntity<Reserva> cadastrarReserva(@RequestBody final Reserva reserva) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservaRepository.save(reserva));
+        var resp = reservaService.salvarReserva(reserva);
+        return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
 
     @PutMapping("/atualizar")
     public ResponseEntity<Reserva> atualizarReserva(@RequestBody final Reserva reserva) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservaRepository.save(reserva));
+        return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.salvarReserva(reserva));
     }
 
     @DeleteMapping("/deletar/{codigoReserva}")

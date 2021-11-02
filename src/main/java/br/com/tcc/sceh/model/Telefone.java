@@ -4,10 +4,12 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Telefone {
@@ -18,20 +20,30 @@ public class Telefone {
 	private String ddd;
 	private String numero;
 
+	@ManyToOne
+	private Funcionario funcionario;
+
+	@ManyToOne
+	private Hospital hospital;
+
+
 	public Telefone() {
 	}
 
-	public Telefone(Long codigoTelefone, String ddd, String numero) {
+	public Telefone(final Long codigoTelefone, final String ddd, final String numero,
+			final Funcionario funcionario, final Hospital hospital) {
 		this.codigoTelefone = codigoTelefone;
 		this.ddd = ddd;
 		this.numero = numero;
+		this.funcionario = funcionario;
+		this.hospital = hospital;
 	}
 
 	public Long getCodigoTelefone() {
 		return codigoTelefone;
 	}
 
-	public void setCodigoTelefone(Long codigoTelefone) {
+	public void setCodigoTelefone(final Long codigoTelefone) {
 		this.codigoTelefone = codigoTelefone;
 	}
 
@@ -39,7 +51,7 @@ public class Telefone {
 		return ddd;
 	}
 
-	public void setDdd(String ddd) {
+	public void setDdd(final String ddd) {
 		this.ddd = ddd;
 	}
 
@@ -47,34 +59,23 @@ public class Telefone {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(final String numero) {
 		this.numero = numero;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-
-		if (o == null || getClass() != o.getClass()) return false;
-
-		Telefone telefone = (Telefone) o;
-
-		return new EqualsBuilder().append(codigoTelefone, telefone.codigoTelefone).append(ddd, telefone.ddd)
-				.append(numero, telefone.numero).isEquals();
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
 
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder(17, 37).append(codigoTelefone).append(ddd)
-				.append(numero).toHashCode();
+	public void setFuncionario(final Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this)
-				.append("codigoTelefone", codigoTelefone)
-				.append("ddd", ddd)
-				.append("numero", numero)
-				.toString();
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(final Hospital hospital) {
+		this.hospital = hospital;
 	}
 }
