@@ -1,6 +1,7 @@
 package br.com.tcc.sceh.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -69,5 +70,9 @@ public class Hospital {
 
 	public void setTipo(final String tipo) {
 		this.tipo = tipo;
+	}
+
+	@Override public String toString() {
+		return new ToStringBuilder(this).append("codigoHospital", codigoHospital).append("cnpj", cnpj).append("razaoSocial", razaoSocial).append("nomeFantasia", nomeFantasia).append("tipo", tipo).toString();
 	}
 }

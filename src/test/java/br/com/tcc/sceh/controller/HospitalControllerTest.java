@@ -56,6 +56,7 @@ public class HospitalControllerTest {
         final  ResponseEntity<Hospital> hospitalResponse = controller.cadastrarHospital(hospitalMock);
 
         Assert.assertEquals(hospitalMock, hospitalResponse.getBody());
+        System.out.println(hospitalResponse.getBody());
         Assert.assertEquals(HttpStatus.CREATED, hospitalResponse.getStatusCode());
     }
 
