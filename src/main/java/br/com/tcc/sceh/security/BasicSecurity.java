@@ -17,27 +17,27 @@ public class BasicSecurity extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService);
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder(){
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
 	@Override
-	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.authorizeRequests()
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests()
 				.antMatchers("/hospital/cadastrar").permitAll()
 				.antMatchers("/permissao/cadastrar").permitAll()
 				.antMatchers("/funcionario/cadastrar").permitAll()
 				.antMatchers("/funcionario/logar").permitAll()
 				.anyRequest().authenticated()
 				.and().httpBasic()
-				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and().cors()
 				.and().csrf().disable();
 	}

@@ -18,7 +18,7 @@ public class UserDatailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException{
-		Optional<Funcionario> funcionario = funcionarioRepository.findByUsername(username);
+		var funcionario = funcionarioRepository.findByUsername(username);
 		funcionario.orElseThrow(()-> new UsernameNotFoundException(username + "não encontrado"));
 
 		return funcionario.map(UserDetailsImpl::new).get();

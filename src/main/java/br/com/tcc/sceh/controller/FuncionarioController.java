@@ -7,6 +7,7 @@ import br.com.tcc.sceh.service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,13 +60,13 @@ public class FuncionarioController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Funcionario> cadastrarFuncionario(@RequestBody final Funcionario funcionario){
+    public ResponseEntity<Funcionario> cadastrarFuncionario(@Validated @RequestBody final Funcionario funcionario){
         funcionarioService.verificarFuncionario(funcionario);
         return ResponseEntity.status(HttpStatus.CREATED).body(funcionarioService.cadastrarFuncionario(funcionario));
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<Funcionario> atualizarFuncionario(@RequestBody final Funcionario funcionario){
+    public ResponseEntity<Funcionario> atualizarFuncionario(@Validated @RequestBody final Funcionario funcionario){
         return ResponseEntity.status(HttpStatus.OK).body(funcionarioRepository.save(funcionario));
     }
 

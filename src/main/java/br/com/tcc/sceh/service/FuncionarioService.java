@@ -5,6 +5,7 @@ import br.com.tcc.sceh.model.FuncionarioLogin;
 import br.com.tcc.sceh.repository.FuncionarioRepository;
 import br.com.tcc.sceh.repository.HospitalRepository;
 import br.com.tcc.sceh.repository.PermissaoRepository;
+import br.com.tcc.sceh.utils.ScehUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,6 +33,10 @@ public class FuncionarioService {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         final String senha = encoder.encode(funcionario.getSenha());
         funcionario.setSenha(senha);
+        Optional<Funcionario> existUsername = funcionarioRepository.findByUsername(funcionario.getUsername());
+        if (existUsername.isPresent()) {
+            ScehUtils.lancarException("Username já existe, por gentileza utilizar outro");
+        }
         return funcionarioRepository.save(funcionario);
     }
 

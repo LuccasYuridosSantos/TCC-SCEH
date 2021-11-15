@@ -24,7 +24,7 @@ public class Reserva {
 	private String entregador;
 	private String solicitante;
 	private LocalDate dataEntrega;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Hospital hospital;
 
 	@ManyToOne

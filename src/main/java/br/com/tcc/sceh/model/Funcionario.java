@@ -1,6 +1,5 @@
 package br.com.tcc.sceh.model;
 
-import br.com.tcc.sceh.model.Permissao;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

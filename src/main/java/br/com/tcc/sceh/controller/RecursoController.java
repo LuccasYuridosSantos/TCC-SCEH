@@ -29,13 +29,13 @@ public class RecursoController {
 
     @GetMapping
     public ResponseEntity<List<RecursoHospitalar>> buscarTodosRecursos(){
-        return ResponseEntity.ok(recursoRepository.findAll());
+        return ResponseEntity.ok(recursoRepository.findAllByAtivoTrueAndSolicitacaoFalse());
     }
 
     @GetMapping("/{codigoRecurso}")
     public ResponseEntity<RecursoHospitalar> buscarPorCodigoRecurso(@PathVariable final Long codigoRecurso){
         return recursoRepository.findById(codigoRecurso)
-                .map(resp -> ResponseEntity.ok(resp))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 

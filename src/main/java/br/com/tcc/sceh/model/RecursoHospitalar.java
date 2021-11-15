@@ -1,21 +1,17 @@
 package br.com.tcc.sceh.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RecursoHospitalar {
 	
 	@Id
@@ -33,6 +29,7 @@ public class RecursoHospitalar {
 	private LocalDate data_programada;
 	private Boolean urgencia;
 	private String observacao;
+	private Boolean ativo;
 
 	@ManyToOne
 	private Funcionario funcionario;
@@ -46,7 +43,8 @@ public class RecursoHospitalar {
 	public RecursoHospitalar(final Long codigoRecurso, final int quantidade, final String nome, final String marca,
 			final String fabricante, final String descricao, final LocalDate dataFabricacao,
 			final LocalDate dataValidade, final String lote, final Boolean solicitacao, final LocalDate data_programada,
-			final Boolean urgencia, final String observacao, final Funcionario funcionario, final Hospital hospital) {
+			final Boolean urgencia, final String observacao, final Funcionario funcionario, final Hospital hospital,
+			final Boolean ativo) {
 		this.codigoRecurso = codigoRecurso;
 		this.quantidade = quantidade;
 		this.nome = nome;
@@ -62,6 +60,7 @@ public class RecursoHospitalar {
 		this.observacao = observacao;
 		this.funcionario = funcionario;
 		this.hospital = hospital;
+		this.ativo = ativo;
 	}
 
 	public Long getCodigoRecurso() {
@@ -184,30 +183,11 @@ public class RecursoHospitalar {
 		this.hospital = hospital;
 	}
 
-	@Override
-	public boolean equals(final Object o) {
-		if (this == o)
-			return true;
-
-		if (o == null || getClass() != o.getClass())
-			return false;
-
-		final RecursoHospitalar that = (RecursoHospitalar) o;
-
-		return new EqualsBuilder().append(quantidade, that.quantidade).append(codigoRecurso, that.codigoRecurso)
-				.append(nome, that.nome).append(marca, that.marca).append(fabricante, that.fabricante)
-				.append(descricao, that.descricao).append(dataFabricacao, that.dataFabricacao)
-				.append(dataValidade, that.dataValidade).append(lote, that.lote).append(solicitacao, that.solicitacao)
-				.append(data_programada, that.data_programada).append(urgencia, that.urgencia)
-				.append(observacao, that.observacao).append(funcionario, that.funcionario)
-				.append(hospital, that.hospital).isEquals();
+	public Boolean getAtivo() {
+		return ativo;
 	}
 
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder(17, 37).append(codigoRecurso).append(quantidade).append(nome).append(marca)
-				.append(fabricante).append(descricao).append(dataFabricacao).append(dataValidade).append(lote)
-				.append(solicitacao).append(data_programada).append(urgencia).append(observacao).append(funcionario)
-				.append(hospital).toHashCode();
+	public void setAtivo(final Boolean ativo) {
+		this.ativo = ativo;
 	}
 }

@@ -1,7 +1,7 @@
 package br.com.tcc.sceh.service;
 
 import br.com.tcc.sceh.model.Hospital;
-import br.com.tcc.sceh.utils.SechUtils;
+import br.com.tcc.sceh.utils.ScehUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,23 +11,23 @@ public class HospitalService{
 
     public void ValidacaoHospital(final Hospital hospital) {
         if (hospital == null){
-            SechUtils.lancarException("Hospital",MSG_PADRAO_PARA_HOSPITAL);
+            ScehUtils.lancarException("Hospital",MSG_PADRAO_PARA_HOSPITAL);
         }else{
             verificarAtributosHospital(hospital);
         }
     }
 
     public void verificarAtributosHospital(final Hospital hospital) {
-        SechUtils.lancarExcecaoComAtributoVazioOuNulo(hospital.getNomeFantasia(),
+        ScehUtils.lancarExcecaoComAtributoVazioOuNulo(hospital.getNomeFantasia(),
                 "Nome Fantasia", MSG_PADRAO_PARA_ATRIBUTO);
-        SechUtils.lancarExcecaoComAtributoVazioOuNulo(hospital.getRazaoSocial(),
+        ScehUtils.lancarExcecaoComAtributoVazioOuNulo(hospital.getRazaoSocial(),
                 "Razão Social", MSG_PADRAO_PARA_ATRIBUTO);
-        SechUtils.lancarExcecaoComAtributoVazioOuNulo(hospital.getTipo(),
+        ScehUtils.lancarExcecaoComAtributoVazioOuNulo(hospital.getTipo(),
                 "Tipo", MSG_PADRAO_PARA_ATRIBUTO);
-        SechUtils.lancarExcecaoComAtributoVazioOuNulo(hospital.getCnpj(),
+        ScehUtils.lancarExcecaoComAtributoVazioOuNulo(hospital.getCnpj(),
                 "CNPJ", MSG_PADRAO_PARA_ATRIBUTO);
-        if(!SechUtils.regexCnpjECpf(hospital.getCnpj())){
-            SechUtils.lancarException("O valor do CNPJ ", "não é valido");
+        if(!ScehUtils.regexCnpjECpf(hospital.getCnpj())){
+            ScehUtils.lancarException("O valor do CNPJ ", "não é valido");
         }
     }
 }
