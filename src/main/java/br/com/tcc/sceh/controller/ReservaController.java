@@ -58,16 +58,16 @@ public class ReservaController {
         return ResponseEntity.ok(reservaRepository.findByDataRetiradaLike(dataRetirada));
     }
 
-    @PostMapping("/cadastrar")
-    public ResponseEntity<Reserva> cadastrarReserva(@RequestBody final Reserva reserva) {
-        var resp = reservaService.salvarReserva(reserva);
-        return ResponseEntity.status(HttpStatus.CREATED).body(resp);
-    }
-
-    @PutMapping("/atualizar")
-    public ResponseEntity<Reserva> atualizarReserva(@RequestBody final Reserva reserva) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.salvarReserva(reserva));
-    }
+//    @PostMapping("/cadastrar")
+//    public ResponseEntity<Reserva> cadastrarReserva(@RequestBody final Reserva reserva) {
+//        var resp = reservaService.salvarReserva(reserva);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(resp);
+//    }
+//
+//    @PutMapping("/atualizar")
+//    public ResponseEntity<Reserva> atualizarReserva(@RequestBody final Reserva reserva) {
+//        return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.salvarReserva(reserva));
+//    }
 
     @DeleteMapping("/deletar/{codigoReserva}")
     public ResponseEntity<Void> deletarRecurso(@PathVariable final Long codigoReserva){

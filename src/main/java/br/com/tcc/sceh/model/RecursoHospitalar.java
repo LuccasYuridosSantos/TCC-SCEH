@@ -29,19 +29,24 @@ public class RecursoHospitalar {
 	private LocalDate dataFabricacao;
 	private LocalDate dataValidade;
 	private String lote;
+	private Boolean solicitacao;
+	private LocalDate data_programada;
+	private Boolean urgencia;
+	private String observacao;
+
+	@ManyToOne
+	private Funcionario funcionario;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Hospital hospital;
 
-	@ManyToMany(mappedBy = "recursoHospitalars",cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("recursoHospitalars")
-	private List<Reserva> reservas;
-
 	public RecursoHospitalar() {
 	}
 
-	public RecursoHospitalar(final Long codigoRecurso, final int quantidade, final String nome, final String marca, final String fabricante, final String descricao, final LocalDate dataFabricacao,
-			final LocalDate dataValidade, final String lote, final Hospital hospital, final List<Reserva> reservas) {
+	public RecursoHospitalar(final Long codigoRecurso, final int quantidade, final String nome, final String marca,
+			final String fabricante, final String descricao, final LocalDate dataFabricacao,
+			final LocalDate dataValidade, final String lote, final Boolean solicitacao, final LocalDate data_programada,
+			final Boolean urgencia, final String observacao, final Funcionario funcionario, final Hospital hospital) {
 		this.codigoRecurso = codigoRecurso;
 		this.quantidade = quantidade;
 		this.nome = nome;
@@ -51,8 +56,12 @@ public class RecursoHospitalar {
 		this.dataFabricacao = dataFabricacao;
 		this.dataValidade = dataValidade;
 		this.lote = lote;
+		this.solicitacao = solicitacao;
+		this.data_programada = data_programada;
+		this.urgencia = urgencia;
+		this.observacao = observacao;
+		this.funcionario = funcionario;
 		this.hospital = hospital;
-		this.reservas = reservas;
 	}
 
 	public Long getCodigoRecurso() {
@@ -127,6 +136,46 @@ public class RecursoHospitalar {
 		this.lote = lote;
 	}
 
+	public Boolean getSolicitacao() {
+		return solicitacao;
+	}
+
+	public void setSolicitacao(final Boolean solicitacao) {
+		this.solicitacao = solicitacao;
+	}
+
+	public LocalDate getData_programada() {
+		return data_programada;
+	}
+
+	public void setData_programada(final LocalDate data_programada) {
+		this.data_programada = data_programada;
+	}
+
+	public Boolean getUrgencia() {
+		return urgencia;
+	}
+
+	public void setUrgencia(final Boolean urgencia) {
+		this.urgencia = urgencia;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(final String observacao) {
+		this.observacao = observacao;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(final Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
 	public Hospital getHospital() {
 		return hospital;
 	}
@@ -135,11 +184,30 @@ public class RecursoHospitalar {
 		this.hospital = hospital;
 	}
 
-	public List<Reserva> getReservas() {
-		return reservas;
+	@Override
+	public boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		final RecursoHospitalar that = (RecursoHospitalar) o;
+
+		return new EqualsBuilder().append(quantidade, that.quantidade).append(codigoRecurso, that.codigoRecurso)
+				.append(nome, that.nome).append(marca, that.marca).append(fabricante, that.fabricante)
+				.append(descricao, that.descricao).append(dataFabricacao, that.dataFabricacao)
+				.append(dataValidade, that.dataValidade).append(lote, that.lote).append(solicitacao, that.solicitacao)
+				.append(data_programada, that.data_programada).append(urgencia, that.urgencia)
+				.append(observacao, that.observacao).append(funcionario, that.funcionario)
+				.append(hospital, that.hospital).isEquals();
 	}
 
-	public void setReservas(final List<Reserva> reservas) {
-		this.reservas = reservas;
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(codigoRecurso).append(quantidade).append(nome).append(marca)
+				.append(fabricante).append(descricao).append(dataFabricacao).append(dataValidade).append(lote)
+				.append(solicitacao).append(data_programada).append(urgencia).append(observacao).append(funcionario)
+				.append(hospital).toHashCode();
 	}
 }

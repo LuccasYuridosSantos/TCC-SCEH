@@ -1,21 +1,15 @@
 package br.com.tcc.sceh.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 public class Reserva {
@@ -26,31 +20,32 @@ public class Reserva {
 	private int quantidade;
 	private LocalDate dataReserva;
 	private LocalDate dataRetirada;
-	private String solicitante;
+	private String localEntrega;
 	private String entregador;
-
+	private String solicitante;
+	private LocalDate dataEntrega;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Hospital hospital;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "reserva_recurso",
-			joinColumns = @JoinColumn(name = "codigo_reserva"),
-			inverseJoinColumns = @JoinColumn(name = "codigo_recurso"))
-	@JsonIgnoreProperties("reservas")
-	private List<RecursoHospitalar> recursoHospitalars;
+	@ManyToOne
+	private RecursoHospitalar recursoHospitalar;
 
 	public Reserva() {
 	}
 
-	public Reserva(final Long codigoReserva, final int quantidade, final LocalDate dataReserva, final LocalDate dataRetirada, final String solicitante, final String entregador,
-			final List<RecursoHospitalar> recursoHospitalars) {
+	public Reserva(final Long codigoReserva, final int quantidade, final LocalDate dataReserva,
+			final LocalDate dataRetirada, final String localEntrega, final String entregador, final String solicitante,
+			final LocalDate dataEntrega, final Hospital hospital, final RecursoHospitalar recursoHospitalar) {
 		this.codigoReserva = codigoReserva;
 		this.quantidade = quantidade;
 		this.dataReserva = dataReserva;
 		this.dataRetirada = dataRetirada;
-		this.solicitante = solicitante;
+		this.localEntrega = localEntrega;
 		this.entregador = entregador;
-		this.recursoHospitalars = recursoHospitalars;
+		this.solicitante = solicitante;
+		this.dataEntrega = dataEntrega;
+		this.hospital = hospital;
+		this.recursoHospitalar = recursoHospitalar;
 	}
 
 	public Long getCodigoReserva() {
@@ -85,12 +80,12 @@ public class Reserva {
 		this.dataRetirada = dataRetirada;
 	}
 
-	public String getSolicitante() {
-		return solicitante;
+	public String getLocalEntrega() {
+		return localEntrega;
 	}
 
-	public void setSolicitante(final String solicitante) {
-		this.solicitante = solicitante;
+	public void setLocalEntrega(final String localEntrega) {
+		this.localEntrega = localEntrega;
 	}
 
 	public String getEntregador() {
@@ -101,11 +96,59 @@ public class Reserva {
 		this.entregador = entregador;
 	}
 
-	public List<RecursoHospitalar> getRecursoHospitalars() {
-		return recursoHospitalars;
+	public String getSolicitante() {
+		return solicitante;
 	}
 
-	public void setRecursoHospitalars(final List<RecursoHospitalar> recursoHospitalars) {
-		this.recursoHospitalars = recursoHospitalars;
+	public void setSolicitante(final String solicitante) {
+		this.solicitante = solicitante;
+	}
+
+	public LocalDate getDataEntrega() {
+		return dataEntrega;
+	}
+
+	public void setDataEntrega(final LocalDate dataEntrega) {
+		this.dataEntrega = dataEntrega;
+	}
+
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(final Hospital hospital) {
+		this.hospital = hospital;
+	}
+
+	public RecursoHospitalar getRecursoHospitalar() {
+		return recursoHospitalar;
+	}
+
+	public void setRecursoHospitalar(final RecursoHospitalar recursoHospitalar) {
+		this.recursoHospitalar = recursoHospitalar;
+	}
+
+	@Override
+	public boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		final Reserva reserva = (Reserva) o;
+
+		return new EqualsBuilder().append(quantidade, reserva.quantidade).append(codigoReserva, reserva.codigoReserva)
+				.append(dataReserva, reserva.dataReserva).append(dataRetirada, reserva.dataRetirada)
+				.append(localEntrega, reserva.localEntrega).append(entregador, reserva.entregador)
+				.append(solicitante, reserva.solicitante).append(dataEntrega, reserva.dataEntrega)
+				.append(hospital, reserva.hospital).append(recursoHospitalar, reserva.recursoHospitalar).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(codigoReserva).append(quantidade).append(dataReserva)
+				.append(dataRetirada).append(localEntrega).append(entregador).append(solicitante).append(dataEntrega)
+				.append(hospital).append(recursoHospitalar).toHashCode();
 	}
 }

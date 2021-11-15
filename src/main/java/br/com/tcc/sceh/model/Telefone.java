@@ -21,21 +21,16 @@ public class Telefone {
 	private String numero;
 
 	@ManyToOne
-	private Funcionario funcionario;
-
-	@ManyToOne
 	private Hospital hospital;
 
 
 	public Telefone() {
 	}
 
-	public Telefone(final Long codigoTelefone, final String ddd, final String numero,
-			final Funcionario funcionario, final Hospital hospital) {
+	public Telefone(final Long codigoTelefone, final String ddd, final String numero, final Hospital hospital) {
 		this.codigoTelefone = codigoTelefone;
 		this.ddd = ddd;
 		this.numero = numero;
-		this.funcionario = funcionario;
 		this.hospital = hospital;
 	}
 
@@ -63,19 +58,31 @@ public class Telefone {
 		this.numero = numero;
 	}
 
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(final Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
 	public Hospital getHospital() {
 		return hospital;
 	}
 
 	public void setHospital(final Hospital hospital) {
 		this.hospital = hospital;
+	}
+
+	@Override
+	public boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		final Telefone telefone = (Telefone) o;
+
+		return new EqualsBuilder().append(codigoTelefone, telefone.codigoTelefone).append(ddd, telefone.ddd)
+				.append(numero, telefone.numero).append(hospital, telefone.hospital).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(codigoTelefone).append(ddd)
+				.append(numero).append(hospital).toHashCode();
 	}
 }
