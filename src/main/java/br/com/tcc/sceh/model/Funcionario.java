@@ -5,13 +5,11 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.time.LocalDate;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -22,23 +20,29 @@ public class Funcionario {
 	private Long codigoFuncionario;
 	private String matricula;
 	private String nome;
-	private LocalDate dataNascimento;
 	private boolean status;
+	private String username;
+	private String senha;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Cargo cargo;
+	@ManyToOne
+	private Hospital hospital;
+
+	@ManyToOne
+	private Permissao permissao;
 
 	public Funcionario() {
 	}
 
-	public Funcionario(final Long codigoFuncionario, final String matricula, final String nome,
-			final LocalDate dataNascimento, final boolean status, final Cargo cargo) {
+	public Funcionario(final Long codigoFuncionario, final String matricula, final String nome, final boolean status,
+			final String username, final String senha, final Hospital hospital, final Permissao permissao) {
 		this.codigoFuncionario = codigoFuncionario;
 		this.matricula = matricula;
 		this.nome = nome;
-		this.dataNascimento = dataNascimento;
 		this.status = status;
-		this.cargo = cargo;
+		this.username = username;
+		this.senha = senha;
+		this.hospital = hospital;
+		this.permissao = permissao;
 	}
 
 	public Long getCodigoFuncionario() {
@@ -65,14 +69,6 @@ public class Funcionario {
 		this.nome = nome;
 	}
 
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(final LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
 	public boolean isStatus() {
 		return status;
 	}
@@ -81,11 +77,63 @@ public class Funcionario {
 		this.status = status;
 	}
 
-	public Cargo getCargo() {
-		return cargo;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setCargo(final Cargo cargo) {
-		this.cargo = cargo;
+	public void setUsername(final String username) {
+		this.username = username;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(final String senha) {
+		this.senha = senha;
+	}
+
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(final Hospital hospital) {
+		this.hospital = hospital;
+	}
+
+	public Permissao getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(final Permissao permissao) {
+		this.permissao = permissao;
+	}
+
+	@Override
+	public boolean equals(final Object o) {
+		if (this == o)
+			return true;
+
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		final Funcionario that = (Funcionario) o;
+
+		return new EqualsBuilder().append(status, that.status).append(codigoFuncionario, that.codigoFuncionario)
+				.append(matricula, that.matricula).append(nome, that.nome).append(username, that.username)
+				.append(senha, that.senha).append(hospital, that.hospital).append(permissao, that.permissao).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(codigoFuncionario).append(matricula).append(nome).append(status)
+				.append(username).append(senha).append(hospital).append(permissao).toHashCode();
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this).append("codigoFuncionario", codigoFuncionario).append("matricula", matricula)
+				.append("nome", nome).append("status", status).append("username", username).append("senha", senha)
+				.append("hospital", hospital).append("permissao", permissao).toString();
 	}
 }

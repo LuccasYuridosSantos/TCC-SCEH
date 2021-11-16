@@ -1,21 +1,17 @@
 package br.com.tcc.sceh.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RecursoHospitalar {
 	
 	@Id
@@ -29,19 +25,26 @@ public class RecursoHospitalar {
 	private LocalDate dataFabricacao;
 	private LocalDate dataValidade;
 	private String lote;
+	private Boolean solicitacao;
+	private LocalDate dataProgramada;
+	private Boolean urgencia;
+	private String observacao;
+	private Boolean ativo;
+
+	@ManyToOne
+	private Funcionario funcionario;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Hospital hospital;
 
-	@ManyToMany(mappedBy = "recursoHospitalars",cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("recursoHospitalars")
-	private List<Reserva> reservas;
-
 	public RecursoHospitalar() {
 	}
 
-	public RecursoHospitalar(final Long codigoRecurso, final int quantidade, final String nome, final String marca, final String fabricante, final String descricao, final LocalDate dataFabricacao,
-			final LocalDate dataValidade, final String lote, final Hospital hospital, final List<Reserva> reservas) {
+	public RecursoHospitalar(final Long codigoRecurso, final int quantidade, final String nome, final String marca,
+			final String fabricante, final String descricao, final LocalDate dataFabricacao,
+			final LocalDate dataValidade, final String lote, final Boolean solicitacao, final LocalDate dataProgramada,
+			final Boolean urgencia, final String observacao, final Funcionario funcionario, final Hospital hospital,
+			final Boolean ativo) {
 		this.codigoRecurso = codigoRecurso;
 		this.quantidade = quantidade;
 		this.nome = nome;
@@ -51,8 +54,13 @@ public class RecursoHospitalar {
 		this.dataFabricacao = dataFabricacao;
 		this.dataValidade = dataValidade;
 		this.lote = lote;
+		this.solicitacao = solicitacao;
+		this.dataProgramada = dataProgramada;
+		this.urgencia = urgencia;
+		this.observacao = observacao;
+		this.funcionario = funcionario;
 		this.hospital = hospital;
-		this.reservas = reservas;
+		this.ativo = ativo;
 	}
 
 	public Long getCodigoRecurso() {
@@ -127,6 +135,46 @@ public class RecursoHospitalar {
 		this.lote = lote;
 	}
 
+	public Boolean getSolicitacao() {
+		return solicitacao;
+	}
+
+	public void setSolicitacao(final Boolean solicitacao) {
+		this.solicitacao = solicitacao;
+	}
+
+	public LocalDate getDataProgramada() {
+		return dataProgramada;
+	}
+
+	public void setDataProgramada(final LocalDate dataProgramada) {
+		this.dataProgramada = dataProgramada;
+	}
+
+	public Boolean getUrgencia() {
+		return urgencia;
+	}
+
+	public void setUrgencia(final Boolean urgencia) {
+		this.urgencia = urgencia;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(final String observacao) {
+		this.observacao = observacao;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(final Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
 	public Hospital getHospital() {
 		return hospital;
 	}
@@ -135,11 +183,11 @@ public class RecursoHospitalar {
 		this.hospital = hospital;
 	}
 
-	public List<Reserva> getReservas() {
-		return reservas;
+	public Boolean getAtivo() {
+		return ativo;
 	}
 
-	public void setReservas(final List<Reserva> reservas) {
-		this.reservas = reservas;
+	public void setAtivo(final Boolean ativo) {
+		this.ativo = ativo;
 	}
 }

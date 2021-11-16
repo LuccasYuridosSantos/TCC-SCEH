@@ -10,5 +10,7 @@ import java.util.List;
 public interface RecursoHospitalarRepository extends JpaRepository<RecursoHospitalar, Long>{
 
     List<RecursoHospitalar> findByNomeContainingIgnoreCase(String nomeRecurso);
+    List<RecursoHospitalar> findAllByAtivoTrueAndSolicitacaoFalse();
+    List<RecursoHospitalar> findAllBySolicitacaoIsTrue();
 	
 }

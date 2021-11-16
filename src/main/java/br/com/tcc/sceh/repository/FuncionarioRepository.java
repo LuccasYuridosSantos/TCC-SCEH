@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 import br.com.tcc.sceh.model.Funcionario;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
-    List<Funcionario> findByNomeContainingIgnoreCase(String nomeFuncionario);
+    List<Funcionario> findByNomeContainingIgnoreCase(final String nomeFuncionario);
+    Optional<Funcionario> findByUsername(final String username);
 }

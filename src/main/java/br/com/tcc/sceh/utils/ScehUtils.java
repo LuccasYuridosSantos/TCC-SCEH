@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SechUtils {
+public class ScehUtils {
 
     public static void lancarExcecaoComAtributoVazioOuNulo(final String atributoParaVerificar,
                                                     final String nomeDoAtributo,
@@ -19,6 +19,11 @@ public class SechUtils {
 
     public static void lancarException(final String valorInicialDaMsg, final String valorFinalMsg) {
         List<String> details = List.of(valorInicialDaMsg+ valorFinalMsg);
+        throw ApiException.invalidRequest(details);
+    }
+
+    public static void lancarException(final String... valorMsg) {
+        List<String> details = List.of(valorMsg);
         throw ApiException.invalidRequest(details);
     }
 
