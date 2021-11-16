@@ -1,7 +1,9 @@
 package br.com.tcc.sceh.controller;
 
 import br.com.tcc.sceh.model.RecursoHospitalar;
+import br.com.tcc.sceh.model.requests.RecursoRequest;
 import br.com.tcc.sceh.repository.RecursoHospitalarRepository;
+import br.com.tcc.sceh.service.RecursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +23,16 @@ import java.util.List;
 public class RecursoController {
 
     private RecursoHospitalarRepository recursoRepository;
+    private RecursoService recursoService;
 
     @Autowired
-    public RecursoController(RecursoHospitalarRepository recursoRepository) {
+    public RecursoController(final RecursoHospitalarRepository recursoRepository, final RecursoService recursoService) {
         this.recursoRepository = recursoRepository;
+        this.recursoService = recursoService;
     }
 
     @GetMapping
-    public ResponseEntity<List<RecursoHospitalar>> buscarTodosRecursos(){
+    public ResponseEntity<List<RecursoHospitalar>> buscarTodosRecursosAtivos(){
         return ResponseEntity.ok(recursoRepository.findAllByAtivoTrueAndSolicitacaoFalse());
     }
 
@@ -45,13 +49,15 @@ public class RecursoController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<RecursoHospitalar> cadastrarRecursoHospitalar(@RequestBody final RecursoHospitalar recurso) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(recursoRepository.save(recurso));
+    public ResponseEntity<RecursoHospitalar> cadastrarRecursoHospitalar(@RequestBody final RecursoRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(recursoService.upsert(recursoService.converteRecursoRequest(request)));
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<RecursoHospitalar> atualizarRecursoHospitalar(@RequestBody final RecursoHospitalar recurso) {
-        return ResponseEntity.status(HttpStatus.OK).body(recursoRepository.save(recurso));
+    public ResponseEntity<RecursoHospitalar> atualizarRecursoHospitalar(@RequestBody final RecursoRequest request) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(recursoService.upsert(recursoService.converteRecursoRequest(request)));
     }
 
     @DeleteMapping("/deletar/{codigoRecurso}")

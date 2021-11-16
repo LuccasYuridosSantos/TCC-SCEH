@@ -26,7 +26,7 @@ public class RecursoHospitalar {
 	private LocalDate dataValidade;
 	private String lote;
 	private Boolean solicitacao;
-	private LocalDate data_programada;
+	private LocalDate dataProgramada;
 	private Boolean urgencia;
 	private String observacao;
 	private Boolean ativo;
@@ -42,7 +42,7 @@ public class RecursoHospitalar {
 
 	public RecursoHospitalar(final Long codigoRecurso, final int quantidade, final String nome, final String marca,
 			final String fabricante, final String descricao, final LocalDate dataFabricacao,
-			final LocalDate dataValidade, final String lote, final Boolean solicitacao, final LocalDate data_programada,
+			final LocalDate dataValidade, final String lote, final Boolean solicitacao, final LocalDate dataProgramada,
 			final Boolean urgencia, final String observacao, final Funcionario funcionario, final Hospital hospital,
 			final Boolean ativo) {
 		this.codigoRecurso = codigoRecurso;
@@ -55,7 +55,7 @@ public class RecursoHospitalar {
 		this.dataValidade = dataValidade;
 		this.lote = lote;
 		this.solicitacao = solicitacao;
-		this.data_programada = data_programada;
+		this.dataProgramada = dataProgramada;
 		this.urgencia = urgencia;
 		this.observacao = observacao;
 		this.funcionario = funcionario;
@@ -143,12 +143,12 @@ public class RecursoHospitalar {
 		this.solicitacao = solicitacao;
 	}
 
-	public LocalDate getData_programada() {
-		return data_programada;
+	public LocalDate getDataProgramada() {
+		return dataProgramada;
 	}
 
-	public void setData_programada(final LocalDate data_programada) {
-		this.data_programada = data_programada;
+	public void setDataProgramada(final LocalDate dataProgramada) {
+		this.dataProgramada = dataProgramada;
 	}
 
 	public Boolean getUrgencia() {

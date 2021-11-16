@@ -11,5 +11,6 @@ public interface RecursoHospitalarRepository extends JpaRepository<RecursoHospit
 
     List<RecursoHospitalar> findByNomeContainingIgnoreCase(String nomeRecurso);
     List<RecursoHospitalar> findAllByAtivoTrueAndSolicitacaoFalse();
+    List<RecursoHospitalar> findAllBySolicitacaoIsTrue();
 	
 }
