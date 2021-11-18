@@ -33,12 +33,9 @@ public class ReservaController {
         this.reservaService = reservaService;
     }
 
-
-
-
     @GetMapping
     public ResponseEntity<List<Reserva>> buscarReservas(){
-        return ResponseEntity.ok(reservaRepository.findAll());
+        return ResponseEntity.ok(reservaRepository.findAllByDataEntregaNull());
     }
 
     @GetMapping("/{codigoReserva}")
@@ -60,13 +57,14 @@ public class ReservaController {
 
     @PostMapping("/cadastrar")
     public ResponseEntity<Reserva> cadastrarReserva(@RequestBody final Reserva reserva) {
-        var resp = reservaService.salvarReserva(reserva);
+        var resp = reservaService.cadastrarReserva(reserva);
         return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
 
     @PutMapping("/atualizar")
     public ResponseEntity<Reserva> atualizarReserva(@RequestBody final Reserva reserva) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.salvarReserva(reserva));
+        var responseReserva = reservaService.atualizarReservaEntregue(reserva);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseReserva);
     }
 
     @DeleteMapping("/deletar/{codigoReserva}")

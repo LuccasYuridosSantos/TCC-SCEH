@@ -4,45 +4,66 @@ import br.com.tcc.sceh.model.RecursoHospitalar;
 import br.com.tcc.sceh.model.Reserva;
 import br.com.tcc.sceh.repository.RecursoHospitalarRepository;
 import br.com.tcc.sceh.repository.ReservaRepository;
+import br.com.tcc.sceh.utils.ScehUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.List;
 
-@Service public class ReservaService {
+@Service
+public class ReservaService {
 
-	private ReservaRepository reservaRepository;
 	private RecursoHospitalarRepository recursoRepository;
+	private ReservaRepository reservaRepository;
 
-    @Autowired
-    public ReservaService(final ReservaRepository reservaRepository, final RecursoHospitalarRepository recursoRepository) {
-        this.reservaRepository = reservaRepository;
-        this.recursoRepository = recursoRepository;
-    }
+	@Autowired
+	public ReservaService(final RecursoHospitalarRepository recursoRepository, final ReservaRepository reservaRepository) {
+		this.recursoRepository = recursoRepository;
+		this.reservaRepository = reservaRepository;
+	}
 
-	public Reserva salvarReserva(final Reserva reservaRequest) {
-		final Reserva reserva = new Reserva();
-		if (reservaRequest.getCodigoReserva() != null) {
-			reserva.setCodigoReserva(reserva.getCodigoReserva());
+	public Reserva cadastrarReserva(Reserva reserva){
+		//para reserva um recurso preciso avaliar se o recurso tem quantidade suficiente para ser reservado;
+		verificarRecurso(reserva);
+		List<Reserva> reservasjaRealizadas =
+				reservaRepository.findByDataEntregaIsNullAndRecursoHospitalarEquals(reserva.getRecursoHospitalar());
+		long soma = 0L;
+		for (Reserva re: reservasjaRealizadas){
+			soma += re.getQuantidade();
 		}
-		reserva.setQuantidade(reservaRequest.getQuantidade());
-		reserva.setDataReserva(reservaRequest.getDataReserva());
-		reserva.setDataRetirada(reservaRequest.getDataRetirada());
-		reserva.setSolicitante(reservaRequest.getSolicitante());
-		reserva.setEntregador(reservaRequest.getEntregador());
-		reserva.setRecursoHospitalars(new ArrayList<>());
-		if (!CollectionUtils.isEmpty(reservaRequest.getRecursoHospitalars())) {
-			reserva.getRecursoHospitalars().addAll(reservaRequest.getRecursoHospitalars().stream().map(r -> {
-				RecursoHospitalar recurso = recursoRepository.findById(r.getCodigoRecurso()).orElse(null);
-				if (recurso != null) {
-					recurso.getReservas().add(reserva);
-				}
-				return recurso;
-			}).collect(Collectors.toList()));
+
+		if((soma + reserva.getQuantidade()) > reserva.getRecursoHospitalar().getQuantidade()){
+			ScehUtils.lancarException("Não Foi possivel cadastrar a reserva, a quantidade do recurso é inferior ao "
+					+ "solicitado");
 		}
 
 		return reservaRepository.save(reserva);
 	}
+
+	public Reserva atualizarReservaEntregue(Reserva reserva){
+		// Com a reserva entregue precisamos abater a quantidade dos recursos diponiveis
+		verificarRecurso(reserva);
+		if(reserva.getRecursoHospitalar() == null || reserva.getDataEntrega() == null){
+			ScehUtils.lancarException("Não foi possivel atualizar a reserva, por favor verifique os dados informado");
+		}
+		var recurso = reserva.getRecursoHospitalar();
+
+		if((recurso.getQuantidade() - reserva.getQuantidade()) < 0){
+			ScehUtils.lancarException("Não foi possivel atualizar a reserva");
+		}
+		recurso.setQuantidade(recurso.getQuantidade() - reserva.getQuantidade());
+
+		if(recurso.getQuantidade() == 0){
+			recurso.setAtivo(false);
+		}
+		reserva.setRecursoHospitalar(recursoRepository.save(recurso));
+		return reservaRepository.save(reserva);
+	}
+
+	private void verificarRecurso(final Reserva reserva) {
+		if(reserva != null && reserva.getRecursoHospitalar() != null){
+			recursoRepository.findById(reserva.getRecursoHospitalar().getCodigoRecurso()).ifPresent(reserva::setRecursoHospitalar);
+		}
+	}
+
 }
