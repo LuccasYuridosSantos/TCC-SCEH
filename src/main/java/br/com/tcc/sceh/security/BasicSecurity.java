@@ -31,6 +31,7 @@ public class BasicSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/hospital/cadastrar").permitAll()
+				//.antMatchers("/hospital/listar-todos").permitAll()
 				.antMatchers("/permissao/cadastrar").permitAll()
 				.antMatchers("/funcionario/cadastrar").permitAll()
 				.antMatchers("/funcionario/logar").permitAll()

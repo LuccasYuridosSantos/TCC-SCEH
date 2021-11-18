@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/hospital")
@@ -29,9 +32,18 @@ public class HospitalController {
     }
 
 
-    @GetMapping
-    public List<Hospital> buscarHospitais(){
-        return hospitalRepository.findAll();
+    @RequestMapping(method = RequestMethod.GET, value = "/listar-todos")
+    public ResponseEntity<List<Hospital>> buscarHospitais(){
+    	
+    	List<Hospital> hospitais = new ArrayList<>();
+    	
+    	Optional<List<Hospital>> procureTodos = hospitalRepository.procureTodos();
+    	
+    	if(procureTodos.isPresent()) {
+    		hospitais.addAll(procureTodos.get());
+    	}
+    	
+        return ResponseEntity.status(HttpStatus.OK).body(hospitais);
     }
 
     @GetMapping("/{codigoHospital}")
