@@ -1,6 +1,6 @@
 package br.com.tcc.sceh.security;
 
-import br.com.tcc.sceh.model.Funcionario;
+import br.com.tcc.sceh.model.entity.Funcionario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

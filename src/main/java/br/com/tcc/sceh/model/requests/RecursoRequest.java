@@ -1,8 +1,5 @@
 package br.com.tcc.sceh.model.requests;
 
-import br.com.tcc.sceh.model.Funcionario;
-import br.com.tcc.sceh.model.Hospital;
-
 import java.time.LocalDate;
 
 public class RecursoRequest {

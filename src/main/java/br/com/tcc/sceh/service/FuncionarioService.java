@@ -1,7 +1,7 @@
 package br.com.tcc.sceh.service;
 
-import br.com.tcc.sceh.model.Funcionario;
-import br.com.tcc.sceh.model.FuncionarioLogin;
+import br.com.tcc.sceh.model.entity.Funcionario;
+import br.com.tcc.sceh.model.entity.FuncionarioLogin;
 import br.com.tcc.sceh.repository.FuncionarioRepository;
 import br.com.tcc.sceh.repository.HospitalRepository;
 import br.com.tcc.sceh.repository.PermissaoRepository;

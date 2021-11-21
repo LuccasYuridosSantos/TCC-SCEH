@@ -1,5 +1,7 @@
-package br.com.tcc.sceh.model;
+package br.com.tcc.sceh.model.entity;
 
+import br.com.tcc.sceh.model.entity.Funcionario;
+import br.com.tcc.sceh.model.entity.Hospital;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.CascadeType;

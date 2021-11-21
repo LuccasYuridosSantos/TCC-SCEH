@@ -1,4 +1,4 @@
-package br.com.tcc.sceh.model;
+package br.com.tcc.sceh.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.lang3.builder.EqualsBuilder;

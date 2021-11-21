@@ -1,6 +1,6 @@
 package br.com.tcc.sceh.repository;
 
-import br.com.tcc.sceh.model.RecursoHospitalar;
+import br.com.tcc.sceh.model.entity.RecursoHospitalar;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

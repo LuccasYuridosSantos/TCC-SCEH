@@ -1,6 +1,7 @@
 package br.com.tcc.sceh.utils;
 
 import br.com.tcc.sceh.exceptions.ApiException;
+import br.com.tcc.sceh.model.entity.Hospital;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -32,4 +33,10 @@ public class ScehUtils {
         Matcher matcher = pattern.matcher(valor);
         return matcher.find();
     }
+
+	public static String removeCharacterSpecialCNPJ(String cnpjReques) {
+
+        return cnpjReques.replaceAll("\\.", "")
+                .replaceAll("-","").replaceAll("/","");
+	}
 }

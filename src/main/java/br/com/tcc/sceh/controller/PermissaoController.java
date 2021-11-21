@@ -1,6 +1,6 @@
 package br.com.tcc.sceh.controller;
 
-import br.com.tcc.sceh.model.Permissao;
+import br.com.tcc.sceh.model.entity.Permissao;
 import br.com.tcc.sceh.repository.PermissaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

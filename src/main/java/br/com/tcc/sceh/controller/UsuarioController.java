@@ -1,6 +1,6 @@
 package br.com.tcc.sceh.controller;
 
-import br.com.tcc.sceh.model.Usuario;
+import br.com.tcc.sceh.model.entity.Usuario;
 import br.com.tcc.sceh.repository.UsuarioRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

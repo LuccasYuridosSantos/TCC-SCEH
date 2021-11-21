@@ -1,6 +1,6 @@
 package br.com.tcc.sceh.service;
 
-import br.com.tcc.sceh.model.RecursoHospitalar;
+import br.com.tcc.sceh.model.entity.RecursoHospitalar;
 import br.com.tcc.sceh.model.requests.RecursoRequest;
 import br.com.tcc.sceh.model.requests.SolicitacaoRequest;
 import br.com.tcc.sceh.repository.FuncionarioRepository;

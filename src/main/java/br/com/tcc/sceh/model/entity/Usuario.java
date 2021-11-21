@@ -1,11 +1,10 @@
-package br.com.tcc.sceh.model;
+package br.com.tcc.sceh.model.entity;
 
 import br.com.tcc.sceh.enums.Permissao;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
