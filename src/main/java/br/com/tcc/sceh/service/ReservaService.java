@@ -1,7 +1,6 @@
 package br.com.tcc.sceh.service;
 
-import br.com.tcc.sceh.model.RecursoHospitalar;
-import br.com.tcc.sceh.model.Reserva;
+import br.com.tcc.sceh.model.entity.Reserva;
 import br.com.tcc.sceh.repository.RecursoHospitalarRepository;
 import br.com.tcc.sceh.repository.ReservaRepository;
 import br.com.tcc.sceh.utils.ScehUtils;

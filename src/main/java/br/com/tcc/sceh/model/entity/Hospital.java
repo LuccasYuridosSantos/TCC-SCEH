@@ -1,4 +1,4 @@
-package br.com.tcc.sceh.model;
+package br.com.tcc.sceh.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -20,7 +20,7 @@ public class Hospital {
 	private String nomeFantasia;
 	private String tipo;
 	private String rua;
-	private int numero;
+	private String numero;
 	private String cidade;
 	private String estado;
 	private String cep;
@@ -31,7 +31,7 @@ public class Hospital {
 	}
 
 	public Hospital(final Long codigoHospital, final String cnpj, final String razaoSocial, final String nomeFantasia,
-			final String tipo, final String rua, final int numero, final String cidade, final String estado,
+			final String tipo, final String rua, final String numero, final String cidade, final String estado,
 			final String cep, final String complemento, final String observacao) {
 		this.codigoHospital = codigoHospital;
 		this.cnpj = cnpj;
@@ -95,11 +95,11 @@ public class Hospital {
 		this.rua = rua;
 	}
 
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(final int numero) {
+	public void setNumero(final String numero) {
 		this.numero = numero;
 	}
 

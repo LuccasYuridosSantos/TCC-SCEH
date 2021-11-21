@@ -1,9 +1,6 @@
 package br.com.tcc.sceh.helper;
 
-import br.com.tcc.sceh.model.Hospital;
-import br.com.tcc.sceh.model.Telefone;
-
-import java.util.List;
+import br.com.tcc.sceh.model.entity.Hospital;
 
 public class HospitalBuilder {
     private Hospital hospital = new Hospital();

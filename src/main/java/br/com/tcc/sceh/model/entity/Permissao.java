@@ -1,4 +1,4 @@
-package br.com.tcc.sceh.model;
+package br.com.tcc.sceh.model.entity;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

@@ -1,11 +1,10 @@
 package br.com.tcc.sceh.controller;
 
-import br.com.tcc.sceh.model.Telefone;
+import br.com.tcc.sceh.model.entity.Telefone;
 import br.com.tcc.sceh.repository.TelefoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
