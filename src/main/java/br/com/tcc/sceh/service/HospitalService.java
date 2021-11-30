@@ -43,6 +43,7 @@ public class HospitalService{
     public Hospital preCadastroHospital(HospitalRequest request){
         var respCnpj = cnpjService.buscaCNPJ(request.getCnpj());
         var hospital = ConvertUtil.convertHospital(respCnpj);
+        hospital.setNomeFantasia(request.getNome());
         hospital.setTipo(request.getTipo());
         hospital.setObservacao(request.getObservacao());
         validacaoHospital(hospital);

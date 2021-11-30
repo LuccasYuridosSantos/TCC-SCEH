@@ -5,10 +5,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FuncionarioLogin {
 
+	private Long codigoFuncionario;
 	private String nome;
 	private String username;
 	private String senha;
 	private String token;
+
+	public Long getCodigoFuncionario() {
+		return codigoFuncionario;
+	}
+
+	public void setCodigoFuncionario(final Long codigoFuncionario) {
+		this.codigoFuncionario = codigoFuncionario;
+	}
 
 	public String getNome() {
 		return nome;

@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -63,9 +64,7 @@ public class FuncionarioService {
 
     public void verificarFuncionario(final Funcionario funcionario) {
         funcionario.setStatus(true);
-        if(funcionario != null){
-            adicionarUmaPermissaoEHospitalExistente(funcionario);
-        }
+        adicionarUmaPermissaoEHospitalExistente(funcionario);
     }
 
     private void adicionarUmaPermissaoEHospitalExistente(final Funcionario funcionario) {
@@ -73,7 +72,7 @@ public class FuncionarioService {
             permissaoRepository.findById(funcionario.getPermissao().getCodigoPermissao()).ifPresent(funcionario::setPermissao);
         }
         if(funcionario.getHospital() != null){
-            hospitalRepository.findById(funcionario.getHospital().getCodigoHospital()).ifPresent(funcionario::setHospital);
+            hospitalRepository.findByCnpj(funcionario.getHospital().getCnpj()).ifPresent(funcionario::setHospital);
         }
     }
 }

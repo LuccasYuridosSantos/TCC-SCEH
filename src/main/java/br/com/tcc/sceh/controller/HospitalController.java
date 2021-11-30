@@ -3,12 +3,11 @@ package br.com.tcc.sceh.controller;
 import br.com.tcc.sceh.model.entity.Hospital;
 import br.com.tcc.sceh.model.requests.HospitalRequest;
 import br.com.tcc.sceh.repository.HospitalRepository;
-import br.com.tcc.sceh.service.CnpjService;
 import br.com.tcc.sceh.service.HospitalService;
-import br.com.tcc.sceh.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hospital")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class HospitalController {
     private HospitalService hospitalService;
     private HospitalRepository hospitalRepository;

@@ -32,10 +32,6 @@ public class GlobalExceptionHandler {
         @JsonProperty
         private final List<String> details;
 
-        public MessageResponse(final Integer code, final String message) {
-            this(code, message, null);
-        }
-
         public MessageResponse(final Integer code, final String message, final List<String> details) {
             super();
             this.code = code;
