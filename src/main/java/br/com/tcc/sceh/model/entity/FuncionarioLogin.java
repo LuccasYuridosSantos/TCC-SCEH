@@ -5,10 +5,20 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FuncionarioLogin {
 
+	private Long codigoFuncionario;
 	private String nome;
 	private String username;
 	private String senha;
+	private String nomeHospital;
 	private String token;
+
+	public Long getCodigoFuncionario() {
+		return codigoFuncionario;
+	}
+
+	public void setCodigoFuncionario(final Long codigoFuncionario) {
+		this.codigoFuncionario = codigoFuncionario;
+	}
 
 	public String getNome() {
 		return nome;
@@ -40,5 +50,13 @@ public class FuncionarioLogin {
 
 	public void setToken(final String token) {
 		this.token = token;
+	}
+
+	public String getNomeHospital() {
+		return nomeHospital;
+	}
+
+	public void setNomeHospital(final String nomeHospital) {
+		this.nomeHospital = nomeHospital;
 	}
 }
