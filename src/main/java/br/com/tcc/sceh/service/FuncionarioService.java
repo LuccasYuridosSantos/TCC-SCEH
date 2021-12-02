@@ -7,6 +7,7 @@ import br.com.tcc.sceh.repository.HospitalRepository;
 import br.com.tcc.sceh.repository.PermissaoRepository;
 import br.com.tcc.sceh.utils.ScehUtils;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,12 @@ public class FuncionarioService {
                 String authHeader = "Basic "+new String(encodeAuth);
                 login.get().setToken(authHeader);
                 login.get().setNome(funcionario.get().getNome());
+                if(StringUtils.isNotBlank(funcionario.get().getHospital().getNomeFantasia())){
+                    login.get().setNomeHospital(funcionario.get().getHospital().getNomeFantasia());
+                }else{
+                    login.get().setNomeHospital(funcionario.get().getHospital().getRazaoSocial());
+                }
+
                 return login;
             }
         }
