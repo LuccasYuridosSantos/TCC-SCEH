@@ -10,12 +10,12 @@ public class SolicitacaoRequest {
 	private Boolean urgencia;
 	private String observacao;
 	private Boolean ativo;
-	private Long codigoHospital;
+	private String cnpj;
 	private Long codigoFuncionario;
 
 	public SolicitacaoRequest(final Long codigoRecurso, final int quantidade, final String nome, final String marca,
 			final String fabricante, final String descricao, final Boolean urgencia, final String observacao,
-			final Boolean ativo, final Long codigoHospital, final long codigoFuncionario) {
+			final Boolean ativo, final String cnpj, final Long codigoFuncionario) {
 		this.codigoRecurso = codigoRecurso;
 		this.quantidade = quantidade;
 		this.nome = nome;
@@ -25,7 +25,7 @@ public class SolicitacaoRequest {
 		this.urgencia = urgencia;
 		this.observacao = observacao;
 		this.ativo = ativo;
-		this.codigoHospital = codigoHospital;
+		this.cnpj = cnpj;
 		this.codigoFuncionario = codigoFuncionario;
 	}
 
@@ -101,12 +101,12 @@ public class SolicitacaoRequest {
 		this.ativo = ativo;
 	}
 
-	public Long getCodigoHospital() {
-		return codigoHospital;
+	public String getCnpj() {
+		return cnpj;
 	}
 
-	public void setCodigoHospital(final Long codigoHospital) {
-		this.codigoHospital = codigoHospital;
+	public void setCnpj(final String cnpj) {
+		this.cnpj = cnpj;
 	}
 
 	public Long getCodigoFuncionario() {
