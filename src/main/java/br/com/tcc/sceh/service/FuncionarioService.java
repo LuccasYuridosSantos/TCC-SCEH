@@ -59,6 +59,7 @@ public class FuncionarioService {
                 }else{
                     login.get().setNomeHospital(funcionario.get().getHospital().getRazaoSocial());
                 }
+                login.get().setCnpj(funcionario.get().getHospital().getCnpj());
 
                 return login;
             }

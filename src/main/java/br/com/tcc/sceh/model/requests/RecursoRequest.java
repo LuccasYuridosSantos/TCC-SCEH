@@ -13,12 +13,12 @@ public class RecursoRequest {
 	private LocalDate dataFabricacao;
 	private LocalDate dataValidade;
 	private String lote;
-	private Long codigoHospital;
+	private String cnpj;
 	private Long codigoFuncionario;
 
 	public RecursoRequest(final Long codigoRecurso, final int quantidade, final String nome, final String marca,
 			final String fabricante, final String descricao, final LocalDate dataFabricacao,
-			final LocalDate dataValidade, final String lote, final Long codigoHospital, final Long codigoFuncionario) {
+			final LocalDate dataValidade, final String lote, final String cnpj, final Long codigoFuncionario) {
 		this.codigoRecurso = codigoRecurso;
 		this.quantidade = quantidade;
 		this.nome = nome;
@@ -28,7 +28,7 @@ public class RecursoRequest {
 		this.dataFabricacao = dataFabricacao;
 		this.dataValidade = dataValidade;
 		this.lote = lote;
-		this.codigoHospital = codigoHospital;
+		this.cnpj = cnpj;
 		this.codigoFuncionario = codigoFuncionario;
 	}
 
@@ -104,12 +104,12 @@ public class RecursoRequest {
 		this.lote = lote;
 	}
 
-	public Long getCodigoHospital() {
-		return codigoHospital;
+	public String getCnpj() {
+		return cnpj;
 	}
 
-	public void setCodigoHospital(final Long codigoHospital) {
-		this.codigoHospital = codigoHospital;
+	public void setCnpj(final String cnpj) {
+		this.cnpj = cnpj;
 	}
 
 	public Long getCodigoFuncionario() {

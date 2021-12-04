@@ -10,6 +10,7 @@ public class FuncionarioLogin {
 	private String username;
 	private String senha;
 	private String nomeHospital;
+	private String cnpj;
 	private String token;
 
 	public Long getCodigoFuncionario() {
@@ -44,19 +45,27 @@ public class FuncionarioLogin {
 		this.senha = senha;
 	}
 
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(final String token) {
-		this.token = token;
-	}
-
 	public String getNomeHospital() {
 		return nomeHospital;
 	}
 
 	public void setNomeHospital(final String nomeHospital) {
 		this.nomeHospital = nomeHospital;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(final String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(final String token) {
+		this.token = token;
 	}
 }
