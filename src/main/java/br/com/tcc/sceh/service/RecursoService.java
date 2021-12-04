@@ -73,7 +73,7 @@ public class RecursoService {
 		recurso.setAtivo(true);
 		recurso.setSolicitacao(false);
 
-		hospitalRepository.findById(request.getCodigoHospital())
+		hospitalRepository.findByCnpj(request.getCnpj())
 				.ifPresent(recurso::setHospital);
 		funcionarioRepository.findById(request.getCodigoFuncionario())
 				.ifPresent(recurso::setFuncionario);
