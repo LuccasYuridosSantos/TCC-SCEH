@@ -38,7 +38,13 @@ public class RecursoController {
         return ResponseEntity.ok(recursoRepository.findAllByAtivoTrueAndSolicitacaoFalse());
     }
 
-    @GetMapping("/{codigoRecurso}")
+    @GetMapping("/outros/{cnpj}")
+    public ResponseEntity<List<RecursoHospitalar>> buscarTodosRecursosAtivosDeOutrosHospitais(@PathVariable final String cnpj){
+        return ResponseEntity.ok(recursoRepository
+                .findAllByAtivoTrueAndSolicitacaoFalseAndAndHospitalCnpjNotContainingIgnoreCase(cnpj));
+    }
+
+    @GetMapping("/id/{codigoRecurso}")
     public ResponseEntity<RecursoHospitalar> buscarPorCodigoRecurso(@PathVariable final Long codigoRecurso){
         return recursoRepository.findById(codigoRecurso)
                 .map(ResponseEntity::ok)
@@ -49,6 +55,13 @@ public class RecursoController {
     public ResponseEntity<List<RecursoHospitalar>> buscarPorCodigoRecurso(@PathVariable final String nomeRecurso){
         return ResponseEntity.ok(recursoRepository.findByNomeContainingIgnoreCase(nomeRecurso));
     }
+
+    @GetMapping("/hospital/{cnpj}")
+    public ResponseEntity<List<RecursoHospitalar>> buscarRecursoPorCnpjhospital(@PathVariable final String cnpj){
+        return ResponseEntity.ok(recursoRepository
+                .findAllByAtivoTrueAndSolicitacaoFalseAndHospitalCnpjContainingIgnoreCase(cnpj));
+    }
+
 
     @PostMapping("/cadastrar")
     public ResponseEntity<RecursoHospitalar> cadastrarRecursoHospitalar(@RequestBody final RecursoRequest request) {
@@ -64,7 +77,7 @@ public class RecursoController {
 
     @DeleteMapping("/deletar/{codigoRecurso}")
     public ResponseEntity<Void> deletarRecurso(@PathVariable final Long codigoRecurso){
-        recursoRepository.deleteById(codigoRecurso);
+        recursoService.deletarRrecurso(codigoRecurso);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

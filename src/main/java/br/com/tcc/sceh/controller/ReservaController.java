@@ -1,5 +1,6 @@
 package br.com.tcc.sceh.controller;
 
+import br.com.tcc.sceh.model.entity.RecursoHospitalar;
 import br.com.tcc.sceh.model.entity.Reserva;
 import br.com.tcc.sceh.repository.ReservaRepository;
 import br.com.tcc.sceh.service.ReservaService;
@@ -38,12 +39,19 @@ public class ReservaController {
         return ResponseEntity.ok(reservaRepository.findAllByDataEntregaNull());
     }
 
-    @GetMapping("/{codigoReserva}")
+    @GetMapping("/codigo/{codigoReserva}")
     public ResponseEntity<Reserva> buscarPorCodigoReserva(@PathVariable final Long codigoReserva){
         return reservaRepository.findById(codigoReserva)
                 .map(resp -> ResponseEntity.ok(resp))
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/hospital/{cnpj}")
+    public ResponseEntity<List<Reserva>> buscarReservasPorCnpjHospital(@PathVariable final String cnpj){
+        return ResponseEntity.ok(reservaRepository.findAllByDataEntregaIsNullAndHospitalCnpjContainingIgnoreCase(cnpj));
+    }
+
+
 
     @GetMapping("/dataReserva/{dataReserva}")
     public ResponseEntity<List<Reserva>> buscarPorDataReserva(@PathVariable final LocalDate dataReserva){
@@ -60,6 +68,12 @@ public class ReservaController {
         var resp = reservaService.cadastrarReserva(reserva);
         return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
+
+    @GetMapping("/verificar/recurso/{codigoRecurso}")
+    public ResponseEntity<List<Reserva>> buscarValorTotalReservadoPorRecurso(@PathVariable Long codigoRecurso){
+        return ResponseEntity.ok(reservaService.buscarReservasPorRecurso(codigoRecurso));
+    }
+
 
     @PutMapping("/atualizar")
     public ResponseEntity<Reserva> atualizarReserva(@RequestBody final Reserva reserva) {

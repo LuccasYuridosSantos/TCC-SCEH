@@ -81,4 +81,12 @@ public class RecursoService {
 		return recurso;
 	}
 
+	public void deletarRrecurso(final Long codigoRecurso) {
+		var result = repository.findById(codigoRecurso);
+		if(result.isPresent()){
+			result.get().setAtivo(false);
+			result.get().setSolicitacao(false);
+			repository.save(result.get());
+		}
+	}
 }

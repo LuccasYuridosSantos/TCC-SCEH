@@ -1,5 +1,7 @@
 package br.com.tcc.sceh.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -27,6 +29,7 @@ public class Reserva {
 	private Hospital hospital;
 
 	@ManyToOne
+	@JsonIgnoreProperties
 	private RecursoHospitalar recursoHospitalar;
 
 	public Reserva() {

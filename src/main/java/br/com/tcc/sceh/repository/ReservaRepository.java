@@ -15,4 +15,5 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long>{
     List<Reserva> findByDataReservaLike(final LocalDate dataReserva);
     List<Reserva> findByDataRetiradaLike(final LocalDate dataReserva);
     List<Reserva> findByDataEntregaIsNullAndRecursoHospitalarEquals(final RecursoHospitalar recurso);
+    List<Reserva> findAllByDataEntregaIsNullAndHospitalCnpjContainingIgnoreCase(final String cnpj);
 }

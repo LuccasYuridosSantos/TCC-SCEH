@@ -54,6 +54,8 @@ public class FuncionarioService {
                 String authHeader = "Basic "+new String(encodeAuth);
                 login.get().setToken(authHeader);
                 login.get().setNome(funcionario.get().getNome());
+                login.get().setPermissao(funcionario.get().getPermissao().getNome());
+                login.get().setCodigoFuncionario(funcionario.get().getCodigoFuncionario());
                 if(StringUtils.isNotBlank(funcionario.get().getHospital().getNomeFantasia())){
                     login.get().setNomeHospital(funcionario.get().getHospital().getNomeFantasia());
                 }else{
