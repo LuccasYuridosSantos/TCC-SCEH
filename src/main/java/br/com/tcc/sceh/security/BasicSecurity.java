@@ -35,6 +35,7 @@ public class BasicSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/permissao/cadastrar").permitAll()
 				.antMatchers("/funcionario/cadastrar").permitAll()
 				.antMatchers("/funcionario/logar").permitAll()
+				.antMatchers("/permissao/cadastrar").permitAll()
 				.anyRequest().authenticated()
 				.and().httpBasic()
 				.and().sessionManagement()
