@@ -43,6 +43,12 @@ public class HospitalController {
                 .map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/cnpj/{cnpj}")
+    public ResponseEntity<Hospital> buscarHospitalPorCnpj(@PathVariable final String cnpj){
+        return hospitalRepository.findByCnpj(cnpj)
+                .map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
     @GetMapping("/nomeFantasia/{nomeFantasia}")
     public ResponseEntity<List<Hospital>> buscarHospitalPeloNomeFantasia(@PathVariable final String nomeFantasia) {
         return ResponseEntity.ok(hospitalRepository.findByNomeFantasiaContainingIgnoreCase(nomeFantasia));

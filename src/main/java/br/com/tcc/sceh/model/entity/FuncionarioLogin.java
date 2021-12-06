@@ -12,6 +12,7 @@ public class FuncionarioLogin {
 	private String nomeHospital;
 	private String cnpj;
 	private String token;
+	private String permissao;
 
 	public Long getCodigoFuncionario() {
 		return codigoFuncionario;
@@ -67,5 +68,13 @@ public class FuncionarioLogin {
 
 	public void setToken(final String token) {
 		this.token = token;
+	}
+
+	public String getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(final String permissao) {
+		this.permissao = permissao;
 	}
 }

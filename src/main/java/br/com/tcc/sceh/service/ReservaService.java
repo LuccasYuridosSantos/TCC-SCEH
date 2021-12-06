@@ -7,6 +7,7 @@ import br.com.tcc.sceh.utils.ScehUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -65,4 +66,14 @@ public class ReservaService {
 		}
 	}
 
+	public List<Reserva> buscarReservasPorRecurso(final Long codigoRecurso) {
+		var recurso = recursoRepository.findById(codigoRecurso);
+		if(recurso.isPresent()){
+			List<Reserva> reservasjaRealizadas = new ArrayList<>();
+			reservasjaRealizadas = reservaRepository.findByDataEntregaIsNullAndRecursoHospitalarEquals(recurso.get());
+			return reservasjaRealizadas;
+		}
+
+		return List.of();
+	}
 }
