@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -74,6 +73,10 @@ public class FuncionarioService {
 
     public void verificarFuncionario(final Funcionario funcionario) {
         funcionario.setStatus(true);
+        var cnpj = funcionario.getHospital().getCnpj();
+        if(cnpj.contains(".") || cnpj.contains("-") || cnpj.contains("/")){
+            funcionario.getHospital().setCnpj(ScehUtils.removeCharacterSpecialCNPJ(cnpj));
+        }
         adicionarUmaPermissaoEHospitalExistente(funcionario);
     }
 
