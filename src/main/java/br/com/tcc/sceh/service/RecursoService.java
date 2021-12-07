@@ -43,6 +43,7 @@ public class RecursoService {
 		recurso.setFabricante(solicitacaoRequest.getFabricante());
 		recurso.setDescricao(solicitacaoRequest.getDescricao());
 		recurso.setUrgencia(solicitacaoRequest.getUrgencia());
+		recurso.setObservacao(solicitacaoRequest.getObservacao());
 		recurso.setAtivo(false);
 		recurso.setSolicitacao(true);
 

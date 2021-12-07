@@ -21,6 +21,10 @@ public class BasicSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService);
+		auth.inMemoryAuthentication()
+				.withUser("root")
+				.password(passwordEncoder().encode("root"))
+				.authorities("ROLE_USER");
 	}
 
 	@Bean
@@ -35,6 +39,7 @@ public class BasicSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/permissao/cadastrar").permitAll()
 				.antMatchers("/funcionario/cadastrar").permitAll()
 				.antMatchers("/funcionario/logar").permitAll()
+				.antMatchers("/permissao/cadastrar").permitAll()
 				.anyRequest().authenticated()
 				.and().httpBasic()
 				.and().sessionManagement()

@@ -38,6 +38,11 @@ public class SolicitacaoController {
 		return ResponseEntity.ok(repository.findAllBySolicitacaoIsTrue());
 	}
 
+	@GetMapping("/nome/{nome}")
+	public ResponseEntity<List<RecursoHospitalar>> buscarTodasSolicitacoesPorNome(@PathVariable String nome){
+		return ResponseEntity.ok(repository.findAllBySolicitacaoIsTrueAndNomeContainingIgnoreCase(nome));
+	}
+
 	@GetMapping("/hospital/{cnpj}")
 	public ResponseEntity<List<RecursoHospitalar>> buscarTodasSolicitacoesPorCnpjHospital(@PathVariable String cnpj){
 		return ResponseEntity.ok(repository
